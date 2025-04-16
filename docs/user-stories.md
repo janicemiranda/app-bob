@@ -141,3 +141,50 @@ Como Usuario, quiero que la aplicación tenga un diseño responsivo y moderno ut
 | HU4                       | Dashboard de Indicadores                | Crear dashboard e indicadores (Ingresos, Subastas Anuladas, etc.)   | Alexander            | Pendiente | Alta      | 2                           |
 | HU5                       | Persistencia de Datos Local             | Implementar almacenamiento y recuperación de datos en LocalStorage  | Janice               | Pendiente | Media     | 2                           |
 | HU6                       | Diseño Responsivo y Moderno             | Aplicar estilos responsivos con Tailwind CSS                        | Janice               | Pendiente | Alta      | 1                           |
+
+---
+
+## Plan de Sprints para el MVP de Subastas Bob
+
+Dado que el proyecto tiene una duración máxima de 10 días y se ha estimado un total de 10 días de esfuerzo, proponemos dividir el trabajo en **2 sprints**. A continuación se detalla qué historias de usuario se asignan a cada sprint:
+
+---
+
+### Sprint 1 (Días 1-5)
+
+En el primer sprint se desarrollarán las funcionalidades básicas esenciales para que el sistema tenga un flujo operativo, abarcando el registro y la gestión interna de subastas, además de asegurar que la interfaz cumpla con los estándares de diseño responsivo.
+
+**Historias de Usuario Incluidas:**
+- **HU1: Registro de Subastas**  
+  Permite que el usuario ingrese toda la información necesaria para crear una subasta.
+- **HU2: Gestión de Estados de Subasta**  
+  Permite actualizar el estado de la subasta (Ingresado, Cobrado, Anulado) y registrar las fechas correspondientes.
+- **HU6: Diseño Responsivo y Moderno**  
+  Asegura que la aplicación se vea bien y funcione en cualquier dispositivo, aplicando Tailwind CSS para un diseño moderno y responsivo.
+
+---
+
+### Sprint 2 (Días 6-10)
+
+El segundo sprint se centrará en integrar la presentación de los datos y mejorar la persistencia, permitiendo la visualización en tiempo real del rendimiento de la plataforma y el almacenamiento adecuado de la información creada en el sprint anterior.
+
+**Historias de Usuario Incluidas:**
+- **HU4: Dashboard de Indicadores**  
+  Permite la visualización de indicadores clave (Ingresos, Subastas Anuladas, Subastas Cobradas, Comisiones Generadas) de manera agregada y en tiempo real.
+- **HU5: Persistencia de Datos Local**  
+  Implementa la funcionalidad de guardar y recuperar la información de las subastas desde LocalStorage, asegurando la persistencia en la aplicación MVP.
+
+---
+
+Esta distribución permite desarrollar primero la funcionalidad central (registro, gestión de estados y diseño) y posteriormente la visualización y persistencia, asegurando un flujo de trabajo coherente y alineado con la metodología Scrum.
+
+
+### Imagen de Backlog y Sprints
+
+#### Backlog
+
+![Backlog](/img/backlog/2025-04-16%2001%2016%2034.png)
+
+#### Sprints
+
+![Sprints](/img/backlog/2025-04-16%2001%2016%2035.png)
