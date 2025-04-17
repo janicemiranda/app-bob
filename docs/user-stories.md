@@ -1,190 +1,125 @@
-# Historias de Usuario
+# Historias de usuarios
 
-### HU1: Registro de Subastas
+## HU1: Gestión de Lista de Clientes
 
-Como usuario quiero registrar una subasta mediante un formulario para que se guarde la información necesaria y se inicie el proceso de subasta.
+- Como usuario del sistema Quiero ver una lista completa de clientes Para acceder a su información y realizar acciones sobre ellos
 
-#### Criterios de Aceptación:
+**Criterios de Aceptación:**
 
-1. Dado que el usuario se encuentra en la página de registro
-   Cuando complete los campos requeridos (Producto, Descripción, Monto, % de Comisión)
-   Entonces se debe crear un registro de subasta con estado "Ingresado" y con la fecha `created_at` asignada
+- Dado que accedo a la página principal Cuando la página carga completamente Entonces veo una tabla con todos los clientes y sus datos básicos
+- Dado que estoy en la lista de clientes Cuando presiono el botón "Nuevo Cliente" Entonces se abre un modal con un formulario para registrar un nuevo cliente
 
-2. Dado que se ingresan el monto y el % de comisión
-   Cuando se escriba en los campos correspondientes
-   Entonces el sistema debe calcular y mostrar automáticamente el total de comisión
+**Notas Técnicas:**
 
-#### Notas Técnicas:
+- Tabla HTML con diseño responsivo usando Tailwind CSS
+- Modal implementado con HTML, CSS y JavaScript vanilla
+- Almacenamiento en localStorage
 
-- Componentes necesarios: Formulario HTML, campos de entrada, botones de envío
-- Modelos de datos: Objeto Subasta con atributos: id, producto, descripción, monto, % comisión, total comisión, estado, created_at, update_at, anulado_at
-- Interacciones: Validación de formulario, evento JavaScript `oninput` o `onchange` para el cálculo en tiempo real
+## HU2: Operaciones CRUD sobre Clientes
 
----
+- Como administrador del sistema Quiero poder crear, editar y anular clientes Para mantener actualizada la información de los participantes
 
-### HU2: Gestión de Estados de Subasta
+**Criterios de Aceptación:**
 
-Como Administrador, quiero actualizar el estado de las subastas (Ingresado, Cobrado, Anulado) para reflejar en el sistema el progreso y la situación real de cada subasta.
+- Dado que estoy en la lista de clientes Cuando presiono el botón "Editar" de un cliente Entonces se abre un modal con un formulario pre-poblado con la información del cliente
+- Dado que estoy en la lista de clientes Cuando presiono el botón "Anular" de un cliente Entonces se abre un modal de confirmación con los botones "Sí" y "No"
+- Dado que estoy en el modal de confirmación de anulación Cuando presiono "Sí" Entonces el cliente es anulado y se actualiza la tabla
 
-#### Criterios de Aceptación:
+**Notas Técnicas:**
 
-1. Dado que una subasta está registrada
-   Cuando se seleccione la opción para marcarla como "Cobrado" o "Anulado"
-   Entonces el sistema debe actualizar el estado y registrar la fecha correspondiente en `update_at` o `anulado_at`
+- Formularios con validación en JavaScript
+- Modales de confirmación usando componentes de Tailwind CSS
+- Persistencia de cambios en localStorage
 
-2. Dado que se actualiza el estado de una subasta
-   Cuando se visualice la información en el dashboard
-   Entonces se debe reflejar claramente el estado actualizado de la subasta
+## HU3: Detalles de Cliente
 
-#### Notas Técnicas:
+- Como usuario del sistema Quiero acceder a los detalles de un cliente específico Para ver sus ingresos y egresos
 
-- Componentes necesarios: Botones o dropdowns para la actualización de estado, lógica en JavaScript
-- Modelos de datos: Atributo "estado" y campos de fecha actualizados según la acción
-- Interacciones: Eventos de click para cambiar el estado y confirmación de acción previa (por ejemplo, ventana modal de confirmación)
+**Criterios de Aceptación:**
 
----
+- Dado que estoy en la lista de clientes Cuando presiono el botón "Detalles" de un cliente Entonces soy redirigido a una nueva vista con la información de ingresos y egresos del cliente
+- Dado que estoy en la vista de detalles Cuando veo la página Entonces puedo ver el título con el nombre del cliente y una tabla con sus ingresos y egresos
 
-### HU3: Cálculo Automático de Comisiones
+**Notas Técnicas:**
 
-Como Usuario, quiero que el sistema calcule automáticamente el total de comisión al ingresar el monto y el % de comisión, para obtener de manera inmediata el valor que representa la comisión.
+- Navegación entre páginas con JavaScript
+- Tabla de transacciones con Tailwind CSS
+- Recuperación de datos desde localStorage
 
-#### Criterios de Aceptación:
+## HU4: Gestión de Transacciones
 
-1. Dado que el usuario está llenando el formulario de registro
-   Cuando ingrese un valor en el campo Monto y % de Comisión
-   Entonces el sistema debe realizar el cálculo y mostrar el total de comisión en el campo designado
+- Como usuario de ventas/contabilidad Quiero poder registrar, editar y eliminar ingresos y egresos por cliente Para mantener actualizado su balance
 
-2. Dado que se modifique el valor del monto o el %
-   Cuando se detecte el cambio
-   Entonces el total de comisión se actualice dinámicamente sin necesidad de recargar la página
+**Criterios de Aceptación:**
 
-#### Notas Técnicas:
+- Dado que estoy en la vista de detalles de un cliente Cuando presiono el botón "Nuevo" Entonces se abre un modal con un formulario para registrar un nuevo ingreso o egreso
+- Dado que estoy en la vista de detalles Cuando presiono el botón "Editar" de una transacción Entonces se abre un modal con un formulario para actualizar la transacción
+- Dado que estoy en la vista de detalles Cuando presiono el botón "Eliminar" de una transacción Entonces se abre un modal de confirmación
 
-- Componentes necesarios: Función JavaScript para el cálculo en tiempo real
-- Modelos de datos: Campos "monto" y "% comisión" que determinan el campo derivado "total comisión"
-- Interacciones: Eventos `onchange` o `oninput` aplicados a los campos de monto y % de comisión
+**Notas Técnicas:**
 
----
+- Formulario de transacciones con selección de tipo (ingreso/egreso)
+- Validación de campos obligatorios con JavaScript
+- Actualización dinámica de la tabla tras operaciones CRUD
 
-### HU4: Dashboard de Indicadores
+## HU5: Dashboard de Estadísticas
 
-Como Administrador, quiero visualizar un dashboard con los indicadores clave de subastas (Ingresos, Subastas Anuladas, Subastas Cobradas, Comisiones Generadas) para monitorizar el desempeño de la plataforma en tiempo real.
+- Como usuario administrativo Quiero ver un dashboard con indicadores clave Para tener una visión general del estado financiero
 
-#### Criterios de Aceptación:
+**Criterios de Aceptación:**
 
-1. Dado que existan varias subastas registradas
-   Cuando se acceda al dashboard
-   Entonces se deben mostrar los datos agregados de Ingresos Totales, cantidad de Subastas Anuladas, cantidad de Subastas Cobradas y Total de Comisiones Generadas
+- Dado que accedo al dashboard Cuando la página carga completamente Entonces veo indicadores de total de ingresos, egresos, clientes, total en soles y total en dólares
+- Dado que estoy en el dashboard Cuando se registran nuevas transacciones en el sistema Entonces los indicadores se actualizan automáticamente
 
-2. Dado que se actualice el estado de alguna subasta
-   Cuando se realice el cambio
-   Entonces los datos en el dashboard deben actualizarse para reflejar la nueva información
+**Notas Técnicas:**
 
-#### Notas Técnicas:
+- Tarjetas de estadísticas con Tailwind CSS
+- Cálculos realizados con JavaScript
+- Actualización dinámica al cargar la página
 
-- Componentes necesarios: Sección de dashboard en la interfaz HTML, elementos de visualización de datos (tarjetas, tablas o gráficos simples)
-- Modelos de datos: Agregados y totales calculados a partir de los registros de subastas
-- Interacciones: Carga inicial de datos desde el almacenamiento local y actualización en tiempo real con JavaScript
+## Product Backlog Priorizado
 
----
+| ID | Historia de Usuario | Descripción | Puntos de Historia | Prioridad | Sprint |
+|----|---------------------|-------------|-------------------|-----------|--------|
+| HU1 | Gestión de Lista de Clientes | Visualización y gestión de la lista completa de clientes | 5 | Alta | 1 |
+| HU2 | Operaciones CRUD sobre Clientes | Crear, editar y anular clientes | 8 | Alta | 1 |
+| HU3 | Detalles de Cliente | Acceso y visualización de ingresos/egresos de un cliente | 5 | Media | 2 |
+| HU4 | Gestión de Transacciones | Registrar, editar y eliminar ingresos y egresos por cliente | 13 | Alta | 2 |
+| HU5 | Dashboard de Estadísticas | Visualización de indicadores financieros clave | 8 | Media | 3 |
+| BL1 | Configuración inicial del proyecto | Estructura base con HTML, Tailwind CSS y JavaScript | 3 | Alta | 1 |
+| BL2 | Optimización responsive | Asegurar visualización correcta en todos los dispositivos | 5 | Baja | 3 |
+| BL3 | Pruebas finales e integración | Validación completa del sistema | 3 | Media | 3 |
 
-### HU5: Persistencia de Datos Local
+> **Nota:**
+>-
+> "Backlog Item" (Elemento de Backlog). Lo utilicé para diferenciar los elementos técnicos o tareas de configuración que no son propiamente historias de usuario (HU) pero que también son necesarios para el proyecto.
+>-
 
-Como Desarrollador, quiero utilizar LocalStorage para guardar la información de las subastas, para mantener la persistencia de los datos en el MVP sin necesidad de un backend.
+## Planificación de Sprints (Enfoque MVP)
 
-#### Criterios de Aceptación:
+### Sprint 1 (1 - 3 días) - Estructura y gestión de clientes
 
-1. Dado que se registra una nueva subasta
-   Cuando se guarda la información
-   Entonces dicha información debe almacenarse en el LocalStorage del navegador
+- Objetivo: Implementar la estructura base y la gestión completa de clientes.
 
-2. Dado que se refresque la página o se reinicie la aplicación
-   Cuando se cargue el sistema
-   Entonces se deben recuperar y mostrar las subastas registradas previamente desde el LocalStorage
+- Configuración del proyecto con HTML, Tailwind CSS y JavaScript
+- Maquetación de la pantalla de lista de clientes
+- Implementación de modales para crear, editar y anular clientes
+- Almacenamiento en localStorage
 
-#### Notas Técnicas:
+### Sprint 2 (1 - 3 días) - Detalles y transacciones
 
-- Componentes necesarios: API de LocalStorage mediante JavaScript
-- Modelos de datos: Objetos JSON representando cada subasta
-- Interacciones: Funciones para almacenar y recuperar la información desde LocalStorage, integradas en los eventos de registro y carga de la página
+- Objetivo: Implementar la vista de detalles y la gestión de transacciones.
 
----
+- Desarrollo de la vista de detalles de cliente
+- Implementación de la tabla de ingresos/egresos
+- Desarrollo de modales para crear, editar y eliminar transacciones
+- Cálculo de balance por cliente
 
-### HU6: Diseño Responsivo y Moderno
+### Sprint 3 (1 - 3 días) - Dashboard y finalización
 
-Como Usuario, quiero que la aplicación tenga un diseño responsivo y moderno utilizando HTML, CSS y Tailwind CSS, para asegurar una buena experiencia de usuario en cualquier dispositivo.
+- Objetivo: Completar el MVP con el dashboard y ajustes finales.
 
-#### Criterios de Aceptación:
-
-1. Dado que la aplicación se visualice en diferentes dispositivos (móvil, tablet, desktop)
-   Cuando se ajuste el tamaño de la pantalla
-   Entonces el diseño debe adaptarse manteniendo la legibilidad y usabilidad de la interfaz
-
-2. Dado que se utilice Tailwind CSS
-   Cuando se implemente el estilo
-   Entonces el resultado debe cumplir con las pautas de diseño moderno, accesible y consistente visualmente
-
-#### Notas Técnicas:
-
-- Componentes necesarios: Framework Tailwind CSS, estructura semántica HTML
-- Modelos de datos: No aplica en esta historia
-- Interacciones: Uso de media queries y clases responsivas de Tailwind CSS para ajustar el diseño según el dispositivo
-
-## Backlog
-
-| ID de Historia de Usuario | Historia de Usuario                     | Nombre de Tarea                                                     | Propietario de Tarea | Estado    | Prioridad | Esfuerzo estimado (en días) |
-|---------------------------|-----------------------------------------|---------------------------------------------------------------------|----------------------|-----------|-----------|-----------------------------|
-| HU1                       | Registro de Subastas                    | Diseñar y maquetar formulario de registro                           | Janice               | Pendiente | Alta      | 2                           |
-| HU3                       | Cálculo Automático de Comisiones        | Implementar validación y cálculo automático de comisión             | Alexander            | Pendiente | Alta      | 1                           |
-| HU2                       | Gestión de Estados de Subasta           | Implementar cambio de estado mediante botones/dropdown              | Janice               | Pendiente | Alta      | 1                           |
-| HU2                       | Gestión de Estados de Subasta           | Actualizar fechas (`update_at`, `anulado_at`) según cambio de estado| Alexander            | Pendiente | Media     | 1                           |
-| HU4                       | Dashboard de Indicadores                | Crear dashboard e indicadores (Ingresos, Subastas Anuladas, etc.)   | Alexander            | Pendiente | Alta      | 2                           |
-| HU5                       | Persistencia de Datos Local             | Implementar almacenamiento y recuperación de datos en LocalStorage  | Janice               | Pendiente | Media     | 2                           |
-| HU6                       | Diseño Responsivo y Moderno             | Aplicar estilos responsivos con Tailwind CSS                        | Janice               | Pendiente | Alta      | 1                           |
-
----
-
-## Plan de Sprints para el MVP de Subastas Bob
-
-Dado que el proyecto tiene una duración máxima de 10 días y se ha estimado un total de 10 días de esfuerzo, proponemos dividir el trabajo en **2 sprints**. A continuación se detalla qué historias de usuario se asignan a cada sprint:
-
----
-
-### Sprint 1 (Días 1-5)
-
-En el primer sprint se desarrollarán las funcionalidades básicas esenciales para que el sistema tenga un flujo operativo, abarcando el registro y la gestión interna de subastas, además de asegurar que la interfaz cumpla con los estándares de diseño responsivo.
-
-**Historias de Usuario Incluidas:**
-- **HU1: Registro de Subastas**  
-  Permite que el usuario ingrese toda la información necesaria para crear una subasta.
-- **HU2: Gestión de Estados de Subasta**  
-  Permite actualizar el estado de la subasta (Ingresado, Cobrado, Anulado) y registrar las fechas correspondientes.
-- **HU6: Diseño Responsivo y Moderno**  
-  Asegura que la aplicación se vea bien y funcione en cualquier dispositivo, aplicando Tailwind CSS para un diseño moderno y responsivo.
-
----
-
-### Sprint 2 (Días 6-10)
-
-El segundo sprint se centrará en integrar la presentación de los datos y mejorar la persistencia, permitiendo la visualización en tiempo real del rendimiento de la plataforma y el almacenamiento adecuado de la información creada en el sprint anterior.
-
-**Historias de Usuario Incluidas:**
-- **HU4: Dashboard de Indicadores**  
-  Permite la visualización de indicadores clave (Ingresos, Subastas Anuladas, Subastas Cobradas, Comisiones Generadas) de manera agregada y en tiempo real.
-- **HU5: Persistencia de Datos Local**  
-  Implementa la funcionalidad de guardar y recuperar la información de las subastas desde LocalStorage, asegurando la persistencia en la aplicación MVP.
-
----
-
-Esta distribución permite desarrollar primero la funcionalidad central (registro, gestión de estados y diseño) y posteriormente la visualización y persistencia, asegurando un flujo de trabajo coherente y alineado con la metodología Scrum.
-
-
-### Imagen de Backlog y Sprints
-
-#### Backlog
-
-![Backlog](/img/backlog/2025-04-16%2001%2016%2034.png)
-
-#### Sprints
-
-![Sprints](/img/backlog/2025-04-16%2001%2016%2035.png)
+- Implementación del dashboard con los indicadores requeridos
+- Desarrollo de los dos indicadores adicionales
+- Ajustes responsive para visualización en dispositivos móviles
+- Pruebas generales y correcciones
