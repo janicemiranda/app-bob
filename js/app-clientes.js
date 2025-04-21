@@ -7,12 +7,15 @@ const formRegistro = document.getElementById('formRegistro');
 const clientesTableBody = document.getElementById('clientesTableBody');
 const notification = document.querySelector("#notification");
 const notificationMessage = document.querySelector("#notification-message");
+const clientSearch = document.getElementById('clientSearch');
+const statusFilter = document.getElementById('statusFilter');
 
 // Estado de la aplicación
 const appStateClients = {
     notificationTimeout: null, // Para controlar el timeout de las notificaciones
     isEditing: false, // Para controlar si estamos editando o agregando
     searchTerm: "", // Término de búsqueda para filtrar clientes
+    statusFilter: "all", // Filtro de estado: "all", "active", "inactive"
     currentClientId: null, // ID del cliente que estamos editando actualmente
 }
 
@@ -118,18 +121,28 @@ function getClientById(id) {
     return window.clientStore.getById(id);
 }
 
-// Filtrar clientes por término de búsqueda
-function filterClients(searchTerm) {
-    if (!searchTerm) {
-        return getAllClients();
+// Filtrar clientes por término de búsqueda y estado
+function filterClients(searchTerm, statusFilter) {
+    // Obtener todos los clientes
+    let filteredClients = getAllClients();
+    
+    // Filtrar por término de búsqueda si existe
+    if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        debugger
+        filteredClients = filteredClients.filter(client => 
+            (client.razonSocial && client.razonSocial.toLowerCase().includes(term)) ||
+            (client.numeroDocumento && client.numeroDocumento.toLowerCase().includes(term))
+        );
     }
     
-    const term = searchTerm.toLowerCase();
-    return window.clientStore.filter(client => 
-        client.razonSocial.toLowerCase().includes(term) ||
-        client.correo.toLowerCase().includes(term) ||
-        client.numeroDocumento.toLowerCase().includes(term)
-    );
+    // Filtrar por estado
+    if (statusFilter !== "all") {
+        const isActive = statusFilter === "active";
+        filteredClients = filteredClients.filter(client => client.activo === isActive);
+    }
+    
+    return filteredClients;
 }
 
 /**
@@ -138,14 +151,14 @@ function filterClients(searchTerm) {
 
 // Renderizar tabla de clientes
 function renderClientTable() {
-    const clients = filterClients(appStateClients.searchTerm);
+    const clients = filterClients(appStateClients.searchTerm, appStateClients.statusFilter);
     clientesTableBody.innerHTML = '';
     
     if (clients.length === 0) {
         clientesTableBody.innerHTML = `
             <tr>
-                <td colspan="5" class="px-4 py-3 text-center text-gray-500">
-                    No hay clientes registrados
+                <td colspan="7" class="px-4 py-3 text-center text-gray-500">
+                    No hay clientes que coincidan con los criterios de búsqueda
                 </td>
             </tr>
         `;
@@ -331,7 +344,22 @@ window.clientStore.subscribe(() => {
     renderClientTable();
 });
 
+// Manejar búsqueda y filtrado
+clientSearch.addEventListener('input', function(event) {
+    appStateClients.searchTerm = event.target.value.trim();
+    renderClientTable();
+});
+
+statusFilter.addEventListener('change', function(event) {
+    appStateClients.statusFilter = event.target.value;
+    renderClientTable();
+});
+
 // Inicializar tabla de clientes cuando el DOM se cargue
 document.addEventListener('DOMContentLoaded', function() {
     renderClientTable();
+    
+    // Inicializar los filtros con valores por defecto
+    clientSearch.value = appStateClients.searchTerm;
+    statusFilter.value = appStateClients.statusFilter;
 });
