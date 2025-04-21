@@ -8,9 +8,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 	</head>
 	<body class="relative bg-yellow-50 overflow-hidden max-h-screen">
-
-		<header class="fixed right-0 top-0 left-60 bg-yellow-50 py-3 px-4 h-16">
-
+		<header class="fixed right-0 top-0 left-60 bg-yellow-50 p-6 h-16">
 			<div class="max-w-4xl mx-auto">
 				<div class="flex content-center">
 					<div class="text-lg font-bold"><h1>Bienvenido</h1></div>
@@ -21,34 +19,15 @@
 		<aside class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
 			<div class="flex flex-col justify-between h-full">
 				<div class="flex-grow">
-					<div class="px-4 py-6 text-center border-b">
-						<h1 class="text-xl font-bold leading-none">App <span class="text-yellow-700">BOB</span></h1>
+					<div class="p-6">
+						<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" />
 					</div>
 					<div class="p-4">
 						<ul class="space-y-1">
 							<li>
 								<a
 									href="index.html"
-									class="flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="1em"
-										height="1em"
-										fill="currentColor"
-										class="text-lg mr-4"
-										viewBox="0 0 16 16"
-									>
-										<path
-											d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"
-										/></svg
-									>Dashboard
-								</a>
-							</li>
-							<li>
-								<a
-									href="clients.html"
-									class="flex items-center bg-yellow-200 rounded-xl font-bold text-sm text-yellow-900 py-3 px-4"
+									class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -60,6 +39,25 @@
 									>
 										<path
 											d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"
+										/></svg
+									>Dashboard
+								</a>
+							</li>
+							<li>
+								<a
+									href="clients.html"
+									class="flex items-center bg-[#E0EFF0] rounded-xl font-bold text-sm text-[#266562] py-3 px-4"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="1em"
+										height="1em"
+										fill="currentColor"
+										class="text-lg mr-4"
+										viewBox="0 0 16 16"
+									>
+										<path
+											d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"
 										/></svg
 									>Clientes
 								</a>
@@ -111,9 +109,9 @@
 							<table class="min-w-full divide-y divide-gray-200" id="clientesTable">
 								<thead class="bg-yellow-100">
 									<tr>
-										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nombre</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">RUC / DNI</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nombre / Razon Social</th>
 										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Correo</th>
-										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Documento</th>
 										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Acciones</th>
 									</tr>
 								</thead>
@@ -126,24 +124,14 @@
 				</div>
 			</div>
 
-			<!-- Modal para Nuevo Cliente -->
-			<!-- <div id="modalCliente" class="fixed z-50 inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
-				<div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative">
-					<button id="closeModalCliente" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-2xl">
+			<!-- Modal para Nuevo Registro -->
+			<div id="modalRegistroClients" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" hidden>
+				<div class="relative w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+					<button id="closeModalRegistroClients" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
 						&times;
 					</button>
-					<h2 class="text-xl font-bold mb-4">Nuevo Cliente</h2>
-					<form id="formCliente" class="space-y-4">
-						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="nombre">Nombre</label>
-							<input
-								type="text"
-								id="nombre"
-								name="nombre"
-								required
-								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-							/>
-						</div>
+					<h2 class="mb-4 text-xl font-bold">Nuevo Cliente</h2>
+					<form id="formRegistro" class="space-y-4">
 						<div>
 							<label class="block text-gray-700 font-medium mb-1" for="correo">Correo</label>
 							<input
@@ -155,160 +143,54 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="documento">Documento</label>
+							<label class="block text-gray-700 font-medium mb-1" for="razonSocial">Nombre o Razon Social</label>
 							<input
 								type="text"
-								id="documento"
-								name="documento"
+								id="razonSocial"
+								name="razonSocial"
 								required
 								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
 							/>
 						</div>
+						<div>
+							<label class="block text-gray-700 font-medium mb-1" for="tipoDocumento">Tipo de Documento</label>
+							<select
+								id="tipoDocumento"
+								name="tipoDocumento"
+								required
+								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+							>
+								<option value="dni">DNI</option>
+								<option value="ruc">RUC</option>
+							</select>
+						</div>
+						<div>
+							<label class="block text-gray-700 font-medium mb-1" for="numeroDocumento">Numero de Documento</label>
+							<input
+								type="text"
+								id="numeroDocumento"
+								number="numeroDocumento"
+								required
+								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+							/>
+						</div>
+						<div>
+							<label class="block text-gray-700 font-medium mb-1" for="observaciones">Observaciones</label>
+							<textarea
+								id="observaciones"
+								name="observaciones"
+								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+							></textarea>
+						</div>
 						<div class="flex justify-end">
 							<button
 								type="button"
-								id="cancelarCliente"
+								id="cancelarRegistroClients"
 								class="mr-2 px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
 							>
 								Cancelar
 							</button>
 							<button type="submit" class="px-4 py-2 rounded bg-yellow-600 text-white hover:bg-yellow-700">
-								Guardar
-							</button>
-						</div>
-					</form>
-				</div>
-			</div> -->
-			<!-- Modal para Nuevo Registro de Movimiento -->
-			<div id="modalRegistro" class="bg-opacity-30 fixed inset-0 z-50 flex items-center justify-center bg-black">
-				<div class="relative w-full max-w-md max-h-full rounded-xl bg-white p-8 shadow-lg overflow-y-auto">
-					<button id="closeModalRegistro" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
-						&times;
-					</button>
-					<h2 class="mb-4 text-xl font-bold">Nuevo Registro</h2>
-
-					<form id="formRegistro" class="space-y-4">
-						<!-- Nombres -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="nombres">Nombres</label>
-							<input
-								type="text"
-								id="nombres"
-								name="nombres"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
-
-						<!-- Apellidos -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="apellidos">Apellidos</label>
-							<input
-								type="text"
-								id="apellidos"
-								name="apellidos"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
-
-						<!-- Movimiento Dropdown -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="movimiento">Movimiento</label>
-							<select
-								id="movimiento"
-								name="movimiento"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							>
-								<option value="">Seleccione</option>
-								<option value="ingreso">Ingreso</option>
-								<option value="egreso">Egreso</option>
-							</select>
-						</div>
-
-						<!-- Fecha (disabled, autocomplete) -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="fecha">Fecha</label>
-							<input
-								type="text"
-								id="fecha"
-								name="fecha"
-								disabled
-								class="w-full rounded border px-3 py-2 bg-gray-100 text-gray-600 focus:outline-none"
-							/>
-						</div>
-
-						<!-- Medio -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="medio">Medio</label>
-							<input
-								type="text"
-								id="medio"
-								name="medio"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
-
-						<!-- Banco -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="banco">Banco</label>
-							<input
-								type="text"
-								id="banco"
-								name="banco"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
-
-						<!-- Moneda and Importe-->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="moneda">Moneda e Importe</label>
-							<div class="flex space-x-2">
-								<select
-									id="moneda"
-									name="moneda"
-									required
-									class="w-1/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-								>
-									<option value="usd">USD</option>
-									<option value="pen">PEN</option>
-								</select>
-								<input
-									type="number"
-									id="importe"
-									name="importe"
-									required
-									placeholder="0.00"
-									class="w-2/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-								/>
-							</div>
-						</div>
-
-						<!-- Concepto -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="concepto">Concepto</label>
-							<input
-								type="text"
-								id="concepto"
-								name="concepto"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
-
-						<!-- Buttons -->
-						<div class="flex justify-end">
-							<button
-								type="button"
-								id="cancelarRegistro"
-								class="mr-2 rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
-							>
-								Cancelar
-							</button>
-							<button type="submit" class="rounded bg-yellow-600 px-4 py-2 text-white hover:bg-yellow-700">
 								Guardar
 							</button>
 						</div>
@@ -320,6 +202,6 @@
 		<script src="js/Models/Client.js"></script>
 		<script src="js/persitence.js"></script>
 		<script src="js/store.js"></script>
-		<script src="js/app.js"></script>
+		<script src="js/app-clientes.js"></script>
 	</body>
 </html>
