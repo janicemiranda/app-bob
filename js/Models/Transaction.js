@@ -10,7 +10,9 @@ class Transaction{
         this.moneda = moneda;
         this.monto = importe;
         this.concepto = concepto;
+        this.activo = true;
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.AnuladoAt = new Date();
     }
 }

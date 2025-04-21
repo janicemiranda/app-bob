@@ -6,7 +6,9 @@ class Client{
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.observaciones = observaciones;
-        this.activo = activo;
+        this.saldoSoles = 0;
+        this.saldoDolares = 0;
+        this.activo = true;
         this.createdAt = new Date();
         this.updatedAt = new Date();
         this.AnuladoAt = new Date();
