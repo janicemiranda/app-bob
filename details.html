@@ -1,114 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App BOB</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-<body class="relative bg-yellow-50 overflow-hidden max-h-screen">
-    <header class="fixed right-0 top-0 left-60 bg-yellow-50 py-3 px-4 h-16">
-        <div class="max-w-4xl mx-auto">
-          <div class="flex content-center">
-            <div class="text-lg font-bold"><h1>Bienvenido</h1></div>
-          </div>
-        </div>
-    </header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>App BOB</title>
+		<link rel="stylesheet" href="css/styles.css" />
+		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	</head>
+	<body class="relative bg-yellow-50 overflow-hidden max-h-screen">
+		<header class="fixed right-0 top-0 left-60 bg-yellow-50 p-6 h-16">
+			<div class="max-w-4xl mx-auto">
+				<div class="flex content-center">
+					<div class="text-lg font-bold"><h1>Bienvenido</h1></div>
+				</div>
+			</div>
+		</header>
 
-      <aside class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
-        <div class="flex flex-col justify-between h-full">
-          <div class="flex-grow">
-            <div class="px-4 py-6 text-center border-b">
-              <h1 class="text-xl font-bold leading-none">App <span class="text-yellow-700">BOB</span></h1>
-            </div>
-            <div class="p-4">
-              <ul class="space-y-1">
-                <li>
-                  <a href="javascript:void(0)" class="flex items-center bg-yellow-200 rounded-xl font-bold text-sm text-yellow-900 py-3 px-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-lg mr-4" viewBox="0 0 16 16">
-                      <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
-                    </svg>Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)" class="flex bg-white hover:bg-yellow-50 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="text-lg mr-4" viewBox="0 0 16 16">
-                      <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"/>
-                    </svg>Clientes
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="p-4">
-            <button type="button" class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="" viewBox="0 0 16 16">
-                <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-              </svg>
-            </button> <span class="font-bold text-sm ml-2">Logout</span>
-          </div>
-        </div>
-      </aside>
-      
-      <!-- Reemplaza solo el contenido dentro del <main> por lo siguiente -->
-<main class="ml-60 pt-16 max-h-screen overflow-auto">
-    <div class="px-6 py-8">
-      <div class="max-w-4xl mx-auto">
-        <div class="bg-white rounded-3xl p-8 mb-5 shadow">
-          <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Cliente: Enter Tech School</h1>
-            <button id="btnNuevoCliente" class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-              Nuevo Cliente
-            </button>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200" id="clientesTable">
-              <thead class="bg-yellow-100">
-                <tr>
-                  <th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nombre</th>
-                  <th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Correo</th>
-                  <th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Documento</th>
-                  <th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Acciones</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-100" id="clientesTableBody">
-                <!-- Las filas de clientes se renderizan aquí dinámicamente -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Modal para Nuevo Registro -->
-    <div id="modalRegistro" class="fixed z-50 inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
-      <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative">
-        <button id="closeModalRegistro" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-        <h2 class="text-xl font-bold mb-4">Nuevo Registro</h2>
-        <form id="formRegistro" class="space-y-4">
-          <div>
-            <label class="block text-gray-700 font-medium mb-1" for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
-          </div>
-          <div>
-            <label class="block text-gray-700 font-medium mb-1" for="correo">Correo</label>
-            <input type="email" id="correo" name="correo" required class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
-          </div>
-          <div>
-            <label class="block text-gray-700 font-medium mb-1" for="documento">Documento</label>
-            <input type="text" id="documento" name="documento" required class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
-          </div>
-          <div class="flex justify-end">
-            <button type="button" id="cancelarRegistro" class="mr-2 px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300">Cancelar</button>
-            <button type="submit" class="px-4 py-2 rounded bg-yellow-600 text-white hover:bg-yellow-700">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
+		<aside class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
+			<div class="flex flex-col justify-between h-full">
+				<div class="flex-grow">
+					<div class="p-6">
+						<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" />
+					</div>
+					<div class="p-4">
+						<ul class="space-y-1">
+							<li>
+								<a
+									href="index.html"
+									class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="1em"
+										height="1em"
+										fill="currentColor"
+										class="text-lg mr-4"
+										viewBox="0 0 16 16"
+									>
+										<path
+											d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"
+										/></svg
+									>Dashboard
+								</a>
+							</li>
+							<li>
+								<a
+									href="clients.html"
+									class="flex items-center bg-[#E0EFF0] rounded-xl font-bold text-sm text-[#266562] py-3 px-4"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="1em"
+										height="1em"
+										fill="currentColor"
+										class="text-lg mr-4"
+										viewBox="0 0 16 16"
+									>
+										<path
+											d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z"
+										/></svg
+									>Clientes
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="p-4">
+					<button
+						type="button"
+						class="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="1em"
+							height="1em"
+							fill="currentColor"
+							class=""
+							viewBox="0 0 16 16"
+						>
+							<path
+								d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+							/>
+						</svg>
+					</button>
+					<span class="font-bold text-sm ml-2">Logout</span>
+				</div>
+			</div>
+		</aside>
 
-    <script src="js/app.js"></script>
-</body>
+		<!-- Reemplaza solo el contenido dentro del <main> por lo siguiente -->
+		<main class="ml-60 pt-16 max-h-screen overflow-auto">
+			<div class="px-6 py-8">
+				<div class="max-w-4xl mx-auto">
+					<div class="bg-white rounded-3xl p-8 mb-5 shadow">
+						<div class="flex items-center justify-between mb-6">
+							<div>
+								<h1 class="text-l text-gray-500 mb-2">Cliente</h1>
+								<p class="text-2xl font-bold text-gray-900 client-name">Enter Tech School</p>
+
+								<p class="mt-1">
+									<span class="text-gray-500">Email:</span>
+									<a href="mailto:email@cliente.com" class="text-black client-email">contacto@enter.edu.pe</a>
+								</p>
+
+								<p>
+									<span class="text-gray-500">DNI:</span>
+									<span class="text-black client-dni">12345678</span>
+								</p>
+							</div>
+
+							<button
+								id="btnNuevoMovimiento"
+								class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition"
+							>
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+								</svg>
+								Nuevo Movimiento
+							</button>
+						</div>
+
+						<!-- <div class="flex items-center justify-between mb-6">
+							<h1 class="text-l text-gray-500">
+								Cliente
+								<p class="text-2xl font-bold text-gray-900">Enter Tech School</p>
+							</h1>
+							<p>Email:<a>contacto@enter.edu.pe</a></p>
+							<p>DNI:0000000</p>
+							<button
+								id="btnNuevoCliente"
+								class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition"
+							>
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+								</svg>
+								Nuevo Cliente
+							</button>
+						</div> -->
+						<div class="overflow-x-auto">
+							<table class="min-w-full divide-y divide-gray-200" id="movimientosTable">
+								<thead class="bg-yellow-100">
+									<tr>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Fecha</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Movimiento</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Medio</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Banco</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Moneda</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Importe</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Concepto</th>
+										<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Accion</th>
+
+									</tr>
+								</thead>
+								<tbody class="bg-white divide-y divide-gray-100" id="clientesTableBody">
+									<!-- Las filas de clientes se renderizan aquí dinámicamente -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal para Nuevo Registro -->
+			<!-- <div id="modalRegistro" class="fixed z-50 inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
+
+				<div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative">
+					<button id="closeModalRegistro" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-2xl">
+						&times;
+					</button>
+					<h2 class="text-xl font-bold mb-4">Nuevo Registro</h2>
+					<form id="formRegistro" class="space-y-4">
+						<div>
+							<label class="block text-gray-700 font-medium mb-1" for="nombre">Nombre</label>
+							<input
+								type="text"
+								id="nombre"
+								name="nombre"
+								required
+								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+							/>
+						</div>
+						<div>
+							<label class="block text-gray-700 font-medium mb-1" for="correo">Correo</label>
+							<input
+								type="email"
+								id="correo"
+								name="correo"
+								required
+								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+							/>
+						</div>
+						<div>
+							<label class="block text-gray-700 font-medium mb-1" for="documento">Documento</label>
+							<input
+								type="text"
+								id="documento"
+								name="documento"
+								required
+								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+							/>
+						</div>
+						<div class="flex justify-end">
+							<button
+								type="button"
+								id="cancelarRegistro"
+								class="mr-2 px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+							>
+								Cancelar
+							</button>
+							<button type="submit" class="px-4 py-2 rounded bg-yellow-600 text-white hover:bg-yellow-700">
+								Guardar
+							</button>
+						</div>
+					</form>
+				</div>
+			</div> -->
+			<!-- Modal para Nuevo Registro de Movimiento -->
+			<div id="modalRegistro" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" hidden>
+				<div class="relative w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+					<button id="closeModalRegistro" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
+						&times;
+					</button>
+					<h2 class="mb-4 text-xl font-bold">Nuevo Movimiento</h2>
+					<form id="formRegistro" class="space-y-4">
+						<div>
+							<p class="client-name text-gray-900 text-2xl font-bold mb-2">Enter Tech School</p>
+
+							<!-- Movimiento Dropdown -->
+							<label class="mb-1 block font-medium text-gray-700" for="movimiento">Movimiento</label>
+							<select
+								id="movimiento"
+								name="movimiento"
+								required
+								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+							>
+								<option value="">Seleccione</option>
+								<option value="ingreso">Ingreso</option>
+								<option value="egreso">Egreso</option>
+							</select>
+						</div>
+
+						<!-- Fecha (disabled) -->
+						<div>
+							<label class="mb-1 block font-medium text-gray-700" for="fecha">Fecha</label>
+							<input
+								type="text"
+								id="fecha"
+								name="fecha"
+								disabled
+								class="w-full rounded border px-3 py-2 bg-gray-100 text-gray-600 focus:outline-none"
+							/>
+						</div>
+
+						<div>
+							<label class="mb-1 block font-medium text-gray-700" for="medio">Medio</label>
+							<input
+								type="text"
+								id="medio"
+								name="medio"
+								required
+								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+							/>
+						</div>
+
+						<div>
+							<label class="mb-1 block font-medium text-gray-700" for="banco">Banco</label>
+							<input
+								type="text"
+								id="banco"
+								name="banco"
+								required
+								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+							/>
+						</div>
+
+						<!-- Moneda and Importe side by side -->
+						<div>
+							<label class="mb-1 block font-medium text-gray-700" for="moneda">Moneda e Importe</label>
+							<div class="flex space-x-2">
+								<select
+									id="moneda"
+									name="moneda"
+									required
+									class="w-1/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+								>
+									<option value="usd">USD</option>
+									<option value="pen">PEN</option>
+								</select>
+								<input
+									type="number"
+									id="importe"
+									name="importe"
+									required
+									placeholder="0.00"
+									class="w-2/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+								/>
+							</div>
+						</div>
+
+						<div>
+							<label class="mb-1 block font-medium text-gray-700" for="concepto">Concepto</label>
+							<input
+								type="text"
+								id="concepto"
+								name="concepto"
+								required
+								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+							/>
+						</div>
+
+						<div class="flex justify-end">
+							<button
+								type="button"
+								id="cancelarRegistro"
+								class="mr-2 rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
+							>
+								Cancelar
+							</button>
+							<button type="submit" class="rounded bg-yellow-600 px-4 py-2 text-white hover:bg-yellow-700">
+								Guardar
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+		<script src="js/Models/Transaction.js"></script>
+		<script src="js/persitence.js"></script>
+		<script src="js/store.js"></script>
+		<script src="js/app-transaction.js"></script>
+	</body>
 </html>
