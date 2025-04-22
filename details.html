@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="shortcut icon" href="/docs/wireframes/img/logo.svg" />
 		<title>App BOB</title>
 		<link rel="stylesheet" href="css/styles.css" />
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -91,7 +92,39 @@
 		<!-- Reemplaza solo el contenido dentro del <main> por lo siguiente -->
 		<main class="ml-60 pt-16 max-h-screen overflow-auto">
 			<div class="px-6 py-8">
-				<div class="max-w-4xl mx-auto">
+				<div class="max-w-6xl mx-auto">
+					<div class="bg-white rounded-3xl p-8 mb-5 shadow">
+						<div class="grid grid-cols-3 gap-4 mb-6">
+							<div class="p-4 bg-green-50 rounded-xl shadow-sm">
+								<p class="text-sm text-green-600 font-medium">Total de Ingresos Soles</p>
+								<p class="text-2xl font-bold text-green-700">S/ <span id="total-ingresos-soles">0.00</span></p>
+							</div>
+							<div class="p-4 bg-green-50 rounded-xl shadow-sm">
+								<p class="text-sm text-green-600 font-medium">Total de Ingresos Dólares</p>
+								<p class="text-2xl font-bold text-green-700">$ <span id="total-ingresos-dolares">0.00</span></p>
+							</div>
+							<div class="p-4 bg-blue-50 rounded-xl shadow-sm">
+								<p class="text-sm text-blue-600 font-medium">Total de Garant. Soles</p>
+								<p class="text-2xl font-bold text-blue-700">S/ <span id="total-garantias-soles">0.00</span></p>
+							</div>
+							<div class="p-4 bg-red-50 rounded-xl shadow-sm">
+								<p class="text-sm text-red-600 font-medium">Total de Egresos Soles</p>
+								<p class="text-2xl font-bold text-red-700">S/ <span id="total-egresos-soles">0.00</span></p>
+							</div>
+							<div class="p-4 bg-red-50 rounded-xl shadow-sm">
+								<p class="text-sm text-red-600 font-medium">Total de Egresos Dólares</p>
+								<p class="text-2xl font-bold text-red-700">$ <span id="total-egresos-dolares">0.00</span></p>
+							</div>
+							<div class="p-4 bg-orange-50 rounded-xl shadow-sm">
+								<p class="text-sm text-orange-600 font-medium">Total de Garant. Dólares</p>
+								<p class="text-2xl font-bold text-orange-700">$ <span id="total-garantias-dolares">0.00</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="px-6 py-0">
+				<div class="max-w-6xl mx-auto">
 					<div class="bg-white rounded-3xl p-8 mb-5 shadow">
 						<div class="flex items-center justify-between mb-6">
 							<div>
@@ -116,27 +149,9 @@
 								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 								</svg>
-								Nuevo Movimiento
+								Nueva Garantía
 							</button>
 						</div>
-
-						<!-- <div class="flex items-center justify-between mb-6">
-							<h1 class="text-l text-gray-500">
-								Cliente
-								<p class="text-2xl font-bold text-gray-900">Enter Tech School</p>
-							</h1>
-							<p>Email:<a>contacto@enter.edu.pe</a></p>
-							<p>DNI:0000000</p>
-							<button
-								id="btnNuevoCliente"
-								class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition"
-							>
-								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-								</svg>
-								Nuevo Cliente
-							</button>
-						</div> -->
 						<div class="overflow-x-auto">
 							<table class="min-w-full divide-y divide-gray-200" id="movimientosTable">
 								<thead class="bg-yellow-100">
@@ -160,68 +175,13 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Modal para Nuevo Registro -->
-			<!-- <div id="modalRegistro" class="fixed z-50 inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
-
-				<div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative">
-					<button id="closeModalRegistro" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-2xl">
-						&times;
-					</button>
-					<h2 class="text-xl font-bold mb-4">Nuevo Registro</h2>
-					<form id="formRegistro" class="space-y-4">
-						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="nombre">Nombre</label>
-							<input
-								type="text"
-								id="nombre"
-								name="nombre"
-								required
-								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-							/>
-						</div>
-						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="correo">Correo</label>
-							<input
-								type="email"
-								id="correo"
-								name="correo"
-								required
-								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-							/>
-						</div>
-						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="documento">Documento</label>
-							<input
-								type="text"
-								id="documento"
-								name="documento"
-								required
-								class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-							/>
-						</div>
-						<div class="flex justify-end">
-							<button
-								type="button"
-								id="cancelarRegistro"
-								class="mr-2 px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
-							>
-								Cancelar
-							</button>
-							<button type="submit" class="px-4 py-2 rounded bg-yellow-600 text-white hover:bg-yellow-700">
-								Guardar
-							</button>
-						</div>
-					</form>
-				</div>
-			</div> -->
 			<!-- Modal para Nuevo Registro de Movimiento -->
 			<div id="modalRegistro" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" hidden>
 				<div class="relative w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
 					<button id="closeModalRegistro" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
 						&times;
 					</button>
-					<h2 class="mb-4 text-xl font-bold">Nuevo Movimiento</h2>
+					<h2 class="mb-4 text-xl font-bold">Nueva Garantía</h2>
 					<form id="formRegistro" class="space-y-4">
 						<div>
 							<p class="client-name text-gray-900 text-2xl font-bold mb-2">Enter Tech School</p>

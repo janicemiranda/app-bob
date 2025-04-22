@@ -50,6 +50,7 @@ formRegistro.addEventListener('submit', function(event) {
         razonSocial: formData.get('razonSocial'),
         tipoDocumento: formData.get('tipoDocumento'),
         numeroDocumento: formData.get('numeroDocumento'),
+        numeroCelular: formData.get('numeroCelular'),
         observaciones: formData.get('observaciones'),
         activo: true
     };
@@ -81,6 +82,7 @@ function addClient(clientData) {
         clientData.razonSocial,
         clientData.tipoDocumento,
         clientData.numeroDocumento,
+        clientData.numeroCelular,
         clientData.correo,
         clientData.observaciones,
         clientData.activo
@@ -96,6 +98,7 @@ function updateClient(id, clientData) {
         razonSocial: clientData.razonSocial,
         tipoDocumento: clientData.tipoDocumento,
         numeroDocumento: clientData.numeroDocumento,
+        numeroCelular: clientData.numeroCelular,
         observaciones: clientData.observaciones,
         updatedAt: new Date()
     });
@@ -185,7 +188,7 @@ function renderClientTable() {
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                         </svg>
                     </button>
-                    <a href="details.html?clientId=${client.id}" class="text-indigo-600 hover:text-indigo-800" title="Detalles Transacciones">
+                    <a href="details.html?clientId=${client.id}" class="text-indigo-600 hover:text-indigo-800" title="Detalles Garantías">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                         </svg>
@@ -203,7 +206,7 @@ function renderClientTable() {
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </button>
-					<a href="details.html?clientId=${client.id}" class="text-indigo-600 hover:text-indigo-800" title="Detalles Transacciones">
+					<a href="details.html?clientId=${client.id}" class="text-indigo-600 hover:text-indigo-800" title="Detalles Garantías">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                         </svg>

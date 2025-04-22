@@ -1,10 +1,11 @@
 class Client{
-    constructor(id, nombre, razonSocial, tipoDocumento, numeroDocumento, correo, observaciones, activo ) {
+    constructor(id, nombre, razonSocial, tipoDocumento, numeroDocumento, numeroCelular, correo, observaciones, activo ) {
         this.id = id || this.generateId();
         this.correo = correo;
         this.razonSocial = razonSocial;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
+        this.numeroCelular = numeroCelular
         this.observaciones = observaciones;
         this.saldoSoles = 0;
         this.saldoDolares = 0;
