@@ -252,6 +252,7 @@ function editClient(id) {
     document.getElementById('tipoDocumento').value = client.tipoDocumento || 'dni';
     document.getElementById('numeroDocumento').value = client.numeroDocumento || '';
     document.getElementById('observaciones').value = client.observaciones || '';
+    document.getElementById('numeroCelular').value = client.numeroCelular || '';
     
     // Mostrar el modal
     modalRegistroClients.removeAttribute('hidden');

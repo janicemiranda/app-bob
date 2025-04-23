@@ -129,16 +129,16 @@
 						<div class="flex items-center justify-between mb-6">
 							<div>
 								<h1 class="text-l text-gray-500 mb-2">Cliente</h1>
-								<p class="text-2xl font-bold text-gray-900 client-name">Enter Tech School</p>
+								<p class="text-2xl font-bold text-gray-900 client-name" id="client-name"></p>
 
 								<p class="mt-1">
 									<span class="text-gray-500">Email:</span>
-									<a href="mailto:email@cliente.com" class="text-black client-email">contacto@enter.edu.pe</a>
+									<a href="mailto:email@cliente.com" class="text-black client-email" id="client-email"></a>
 								</p>
 
 								<p>
-									<span class="text-gray-500">DNI:</span>
-									<span class="text-black client-dni">12345678</span>
+									<span class="text-gray-500" id="client-tipo-documento"></span>
+									<span class="text-black client-dni" id="client-numero-documento"></span>
 								</p>
 							</div>
 
@@ -176,114 +176,205 @@
 				</div>
 			</div>
 			<!-- Modal para Nuevo Registro de Movimiento -->
-			<div id="modalRegistro" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" hidden>
-				<div class="relative w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-					<button id="closeModalRegistro" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
-						&times;
-					</button>
-					<h2 class="mb-4 text-xl font-bold">Nueva Garantía</h2>
-					<form id="formRegistro" class="space-y-4">
-						<div>
-							<p class="client-name text-gray-900 text-2xl font-bold mb-2">Enter Tech School</p>
+			<!-- Modal para Nuevo Registro de Movimiento -->
+<div id="modalRegistro" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" hidden>
+    <div class="relative w-full max-w-5xl rounded-xl bg-white p-8 shadow-lg">
+        <button id="closeModalRegistro" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
+            &times;
+        </button>
+        <h2 class="mb-6 text-xl font-bold">Nueva Garantía</h2>
+        <form id="formRegistro" class="space-y-6">
+            <!-- Grid de 3 columnas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Campo: Movimiento -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="movimiento">Movimiento</label>
+                    <select
+                        id="movimiento"
+                        name="movimiento"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    >
+                        <option value="">Seleccione</option>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="egreso">Egreso</option>
+                    </select>
+                </div>
+                
+                <!-- Campo: Placa -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="placaVehiculo">Placa del Vehículo</label>
+                    <input
+                        type="text"
+                        id="placaVehiculo"
+                        name="placaVehiculo"
+						placeholder="Escribir placa del vehículo"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
+                
+                <!-- Campo: Empresa -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="empresaVehiculo">Empresa del Vehículo</label>
+                    <select
+                        id="empresaVehiculo"
+                        name="empresaVehiculo"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    >
+                        <option value="">Seleccione</option>
+                        <option value="santander">Santander</option>
+                        <option value="acceso">Acceso</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                
+                <!-- Campo: Nombre de Empresa de Vehículo -->
+                <div id="nombreEmpresaVehiculoDiv" hidden>
+                    <label class="mb-1 block font-medium text-gray-700" for="nombreEmpresaVehiculo">Nombre de Empresa de Vehículo</label>
+                    <input
+                        type="text"
+                        id="nombreEmpresaVehiculo"
+                        name="nombreEmpresaVehiculo"
+						placeholder="Escribir nombre de empresa de vehículo"
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
 
-							<!-- Movimiento Dropdown -->
-							<label class="mb-1 block font-medium text-gray-700" for="movimiento">Movimiento</label>
-							<select
-								id="movimiento"
-								name="movimiento"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							>
-								<option value="">Seleccione</option>
-								<option value="ingreso">Ingreso</option>
-								<option value="egreso">Egreso</option>
-							</select>
-						</div>
+                <!-- Campo: Fecha -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="fechaSubasta">Fecha de Subasta</label>
+                    <input
+                        type="date"
+                        id="fechaSubasta"
+                        name="fechaSubasta"
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
 
-						<!-- Fecha (disabled) -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="fecha">Fecha</label>
-							<input
-								type="text"
-								id="fecha"
-								name="fecha"
-								disabled
-								class="w-full rounded border px-3 py-2 bg-gray-100 text-gray-600 focus:outline-none"
-							/>
-						</div>
+                <!-- Campo: Moneda e Importe -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="moneda">Moneda e Importe</label>
+                    <div class="flex space-x-2">
+                        <select
+                            id="moneda"
+                            name="moneda"
+                            required
+                            class="w-1/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                        >
+                            <option value="usd">USD</option>
+                            <option value="pen">PEN</option>
+                        </select>
+                        <input
+                            type="number"
+                            id="importe"
+                            name="importe"
+                            required
+                            placeholder="0.00"
+                            class="w-2/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                        />
+                    </div>
+                </div>
 
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="medio">Medio</label>
-							<input
-								type="text"
-								id="medio"
-								name="medio"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
+                <!-- Campo: Entidad Financiera -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="nombreEntidadFinanciera">Entidad Financiera</label>
+                    <select
+                        id="nombreEntidadFinanciera"
+                        name="nombreEntidadFinanciera"
+						placeholder="Escribir nombre de entidad financiera"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    >
+                        <option value="">Seleccione</option>
+                        <option value="bcp">BCP</option>
+                        <option value="interbank">Interbank</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
 
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="banco">Banco</label>
-							<input
-								type="text"
-								id="banco"
-								name="banco"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
+				<!-- Campo: Nombre de Entidad Financiera -->
+                <div id="nombreEntidadFinancieraDiv" hidden>
+                    <label class="mb-1 block font-medium text-gray-700" for="nombreEntidadFinancieraInput">Nombre de Entidad Financiera</label>
+                    <input
+                        type="text"
+                        id="nombreEntidadFinancieraInput"
+                        name="nombreEntidadFinancieraOtros"
+						placeholder="Escribir nombre de entidad financiera"
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
 
-						<!-- Moneda and Importe side by side -->
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="moneda">Moneda e Importe</label>
-							<div class="flex space-x-2">
-								<select
-									id="moneda"
-									name="moneda"
-									required
-									class="w-1/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-								>
-									<option value="usd">USD</option>
-									<option value="pen">PEN</option>
-								</select>
-								<input
-									type="number"
-									id="importe"
-									name="importe"
-									required
-									placeholder="0.00"
-									class="w-2/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-								/>
-							</div>
-						</div>
+                <!-- Campo: Número de Cuenta -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="numeroCuenta">Numero de Cuenta</label>
+                    <input
+                        type="text"
+                        id="numeroCuenta"
+                        name="numeroCuenta"
+						placeholder="Numero de Cuenta desde la que se hizo el depósito"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
 
-						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="concepto">Concepto</label>
-							<input
-								type="text"
-								id="concepto"
-								name="concepto"
-								required
-								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-							/>
-						</div>
+                <!-- Campo: RUC/DNI -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="datosFacturacionNumero">RUC/DNI Facturación</label>
+                    <input
+                        type="text"
+                        id="datosFacturacionNumero"
+                        name="datosFacturacionNumero"
+						placeholder="Escribir Ruc o DNI"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
 
-						<div class="flex justify-end">
-							<button
-								type="button"
-								id="cancelarRegistro"
-								class="mr-2 rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
-							>
-								Cancelar
-							</button>
-							<button type="submit" class="rounded bg-yellow-600 px-4 py-2 text-white hover:bg-yellow-700">
-								Guardar
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
+                <!-- Campo: Nombre Facturación -->
+                <div>
+                    <label class="mb-1 block font-medium text-gray-700" for="datosFacturacionNombre">Nombre Facturación</label>
+                    <input
+                        type="text"
+                        id="datosFacturacionNombre"
+                        name="datosFacturacionNombre"
+						placeholder="Escribir nombre completo o RUC"
+                        required
+                        class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    />
+                </div>
+            </div>
+            
+            <!-- Comentario (ocupa todo el ancho) -->
+            <div>
+                <label class="mb-1 block font-medium text-gray-700" for="comentario">Comentario</label>
+                <textarea
+                    id="comentario"
+                    name="comentario"
+                    placeholder="Escribir comentario"
+                    required
+                    class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                    rows="3"
+                ></textarea>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex justify-end">
+                <button
+                    type="button"
+                    id="cancelarRegistro"
+                    class="mr-2 rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
+                >
+                    Cancelar
+                </button>
+                <button type="submit" class="rounded bg-yellow-600 px-4 py-2 text-white hover:bg-yellow-700">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 		</main>
 		<script src="js/Models/Transaction.js"></script>
 		<script src="js/persitence.js"></script>
