@@ -7,3 +7,10 @@ function saveClients() {
       JSON.stringify(window.clientStore.getState())
     );
   }
+
+  function saveTransactions() {
+    localStorage.setItem(
+      "transactions",
+      JSON.stringify(window.transactionStore.getState())
+    );
+  }
