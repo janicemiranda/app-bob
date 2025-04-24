@@ -5,19 +5,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="shortcut icon" href="/docs/wireframes/img/logo.svg" />
 		<title>App BOB</title>
-		<link rel="stylesheet" href="css/styles.css" />
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+		<link rel="stylesheet" href="css/styles.css" />
 	</head>
-	<body class="relative bg-yellow-50 overflow-hidden max-h-screen">
-		<header class="fixed right-0 top-0 left-60 bg-yellow-50 p-6 h-16">
-			<div class="max-w-4xl mx-auto">
-				<div class="flex content-center">
-					<div class="text-lg font-bold"><h1>Bienvenido</h1></div>
-				</div>
+
+	<body class="relative bg-yellow-50 overflow-hidden min-h-screen">
+		<!-- Mobile Top Bar -->
+		<header class="flex items-center justify-between bg-white p-4 shadow md:hidden relative z-50">
+			<button id="menu-toggle" class="text-teal-600 text-3xl focus:outline-none">&#9776;</button>
+			<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" class="h-8" />
+
+			<!-- Dropdown Menu (hidden by default) -->
+			<div id="mobile-menu" class="absolute top-full left-0 w-full bg-white shadow-md rounded-b-xl hidden flex-col">
+				<a
+					href="index.html"
+					class="flex items-center bg-[#E0EFF0] rounded-xl font-bold text-sm text-[#266562] py-3 px-4"
+				>
+					Dashboard
+				</a>
+				<a
+					href="clients.html"
+					class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+					>Clientes
+				</a>
+				<a href="#" class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+					>Logout
+				</a>
 			</div>
 		</header>
 
-		<aside class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
+		<!-- Desktop Sidebar -->
+		<aside
+			class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50"
+		>
 			<div class="flex flex-col justify-between h-full">
 				<div class="flex-grow">
 					<div class="p-6">
@@ -89,17 +109,81 @@
 			</div>
 		</aside>
 
-		<!-- Reemplaza solo el contenido dentro del <main> por lo siguiente -->
-		<main class="ml-60 pt-16 max-h-screen overflow-auto">
-			<div class="px-6 py-8">
-				<div class="max-w-4xl mx-auto">
-					<div class="bg-white rounded-3xl p-8 mb-5 shadow">
-						<h1>Dashboard</h1>
+		<main class="md:ml-60 max-h-screen overflow-y-auto">
+			<div class="px-6 py-8 pb-32">
+				<div class="max-w-7xl mx-auto">
+					<h1 class="text-xl font-bold mb-5">Bienvenido, John Doe</h1>
+					<div class="bg-white rounded-3xl p-8 mb-8 shadow flex flex-col gap-8">
+						<!-- Date and Register button  -->
+						<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+							<p class="text-gray-700 text-lg font-semibold">Miércoles 23 de Abril 2025</p>
+							<button
+								class="w-full sm:w-auto px-6 py-3 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition"
+							>
+								Registrar Nueva Garantía
+							</button>
+						</div>
+
+						<!-- Garantías Stats Section -->
+						<div>
+							<h2 class="text-lg font-bold mb-4">Garantías</h2>
+							<div class="grid grid-cols-2 gap-4">
+								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
+									<p class="text-blue-700 text-xs font-semibold">Total Garantías</p>
+									<h2 class="text-blue-900 font-bold text-lg">120</h2>
+								</div>
+								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
+									<p class="text-blue-700 text-xs font-semibold">Garantías Hoy</p>
+									<h2 class="text-blue-900 font-bold text-lg">5</h2>
+								</div>
+							</div>
+						</div>
+
+						<!-- Ingresos Section -->
+						<div>
+							<h2 class="text-xl font-bold mb-4">Ingresos</h2>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div class="bg-green-100 p-6 rounded-xl shadow">
+									<p class="text-green-600 text-sm font-bold mb-2">Total de Ingresos PEN 🇵🇪</p>
+									<h2 class="text-2xl font-bold text-green-700">S/ 1000.00</h2>
+								</div>
+								<div class="bg-green-100 p-6 rounded-xl shadow">
+									<p class="text-green-600 text-sm font-bold mb-2">Total de Ingresos USD 🇺🇸</p>
+									<h2 class="text-2xl font-bold text-green-700">$ 1000.00</h2>
+								</div>
+							</div>
+						</div>
+
+						<!-- Devoluciones Section -->
+						<div>
+							<h2 class="text-xl font-bold mb-4">Devoluciones</h2>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div class="bg-red-100 p-6 rounded-xl shadow">
+									<p class="text-red-600 text-sm font-bold mb-2">Total de Devoluciones PEN 🇵🇪</p>
+									<h2 class="text-2xl font-bold text-red-700">S/ 400.00</h2>
+								</div>
+								<div class="bg-red-100 p-6 rounded-xl shadow">
+									<p class="text-red-600 text-sm font-bold mb-2">Total de Devoluciones USD 🇺🇸</p>
+									<h2 class="text-2xl font-bold text-red-700">$ 400.00</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Charts Section -->
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div class="bg-white p-6 rounded-3xl shadow">
+							<h2 class="text-center text-lg font-semibold mb-4">Gráfico Ingresos PEN</h2>
+							<canvas id="chartPen"></canvas>
+						</div>
+						<div class="bg-white p-6 rounded-3xl shadow">
+							<h2 class="text-center text-lg font-semibold mb-4">Gráfico Ingresos USD</h2>
+							<canvas id="chartUsd"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
 		</main>
-
-		<script src="js/app.js"></script>
+		<script src="js/app-dashboard.js""></script>
 	</body>
 </html>
