@@ -1,0 +1,128 @@
+<header class="flex items-center justify-between bg-white p-4 shadow md:hidden relative z-50">
+	<button id="menu-toggle" class="text-teal-600 text-3xl focus:outline-none">&#9776;</button>
+	<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" class="h-8" />
+
+	<!-- Dropdown Menu (hidden by default) -->
+	<div id="mobile-menu" class="absolute top-full left-0 w-full bg-white shadow-md rounded-b-xl mt-2 hidden flex-col">
+		<a href="index.html" class="flex items-center bg-[#E0EFF0] rounded-xl font-bold text-sm text-[#266562] py-3 px-4">
+			<!-- Dashboard Icon -->
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="text-lg mr-4"
+				width="1em"
+				height="1em"
+				fill="currentColor"
+				viewBox="0 0 16 16"
+			>
+				<path
+					d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"
+				></path>
+			</svg>
+			Dashboard
+		</a>
+		<a href="clients.html" class="block px-6 py-3 text-gray-700 hover:bg-gray-100">Clientes</a>
+		<button class="block w-full text-left px-6 py-3 text-gray-700 hover:bg-gray-100">Logout</button>
+	</div>
+</header>
+
+<!-- Main Content -->
+<main class="md:pt-8 md:ml-60 p-6">
+	<div class="px-4 py-4 bg-yellow-50 rounded-xl max-w-6xl mx-auto">
+		<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+			<h1 class="text-lg font-bold">Bienvenido, John Doe</h1>
+			<button
+				class="w-full sm:w-auto px-6 sm:px-4 py-3 sm:py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition text-center"
+			>
+				Registrar Nuevo Pago
+			</button>
+		</div>
+	</div>
+
+	<!-- Dashboard Cards -->
+	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mt-8">
+		<div class="bg-white rounded-3xl p-6 shadow flex flex-col justify-center items-center h-32">
+			<h1 class="text-xl font-bold text-gray-900">Total Clientes</h1>
+			<p class="text-lg mt-2">3</p>
+		</div>
+		<div class="bg-white rounded-3xl p-6 shadow flex flex-col justify-center items-center h-32">
+			<h1 class="text-xl font-bold text-gray-900">Ingresos USD</h1>
+			<p class="text-lg mt-2">3000 USD</p>
+		</div>
+		<div class="bg-white rounded-3xl p-6 shadow flex flex-col justify-center items-center h-32">
+			<h1 class="text-xl font-bold text-gray-900">Ingresos PEN</h1>
+			<p class="text-lg mt-2">9000 PEN</p>
+		</div>
+	</div>
+
+	<!-- Chart Card -->
+	<div class="bg-white rounded-3xl p-8 shadow max-w-6xl mx-auto mt-8">
+		<h1 class="text-xl font-bold text-gray-900 text-center mb-6">Análisis de ingresos</h1>
+		<div class="grid grid-cols-1 sm:grid-cols-2 items-center">
+			<div class="flex justify-center">
+				<canvas id="myDonutChart" class="w-40 h-40"></canvas>
+			</div>
+			<div></div>
+		</div>
+	</div>
+</main>
+
+
+//new main
+<main class="md:ml-60 max-h-screen overflow-y-auto">
+  <div class="px-6 py-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-xl font-bold mb-5">Bienvenido, John Doe</h1>
+      <div class="bg-white rounded-3xl p-8 mb-5 shadow">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+          <button
+            class="w-full sm:w-auto px-6 sm:px-4 py-3 sm:py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition text-center"
+          >
+            Registrar Nuevo Pago
+          </button>
+          <!-- New area for Cards + Chart -->
+          <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Cards Grid -->
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Card 1 -->
+              <div class="bg-green-100 p-6 rounded-xl shadow-md">
+                <p class="text-sm text-green-600 font-bold">
+                  Total de Ingresos PEN <span class="text-xl">🇵🇪</span>
+                </p>
+                <h2 class="text-green-700 font-bold text-2xl">S/ 1000.00</h2>
+              </div>
+              <div class="bg-green-100 p-6 rounded-xl shadow-md">
+                <p class="text-sm text-green-600 font-bold">
+                  Total de Ingresos USD <span class="text-xl">🇺🇸</span>
+                </p>
+                <h2 class="text-green-700 font-bold text-2xl">$ 1000.00</h2>
+              </div>
+              <!-- Card 2 -->
+              <div class="bg-red-100 p-6 rounded-xl shadow-md">
+                <p class="text-sm text-red-600 font-bold">
+                  Total de Devoluciones PEN <span class="text-xl">🇵🇪</span>
+                </p>
+                <h2 class="text-red-700 font-bold text-2xl">S/ 400.00</h2>
+              </div>
+              <!-- Add more cards if needed -->
+            </div>
+            <div class="bg-red-100 p-6 rounded-xl shadow-md">
+              <p class="text-sm text-red-600 font-bold">
+                Total de Devoluciones USD <span class="text-xl">🇺🇸</span>
+              </p>
+              <h2 class="text-red-700 font-bold text-2xl">$ 400.00</h2>
+            </div>
+            <!-- Add more cards if needed -->
+          </div>
+            <!-- Chart Section -->
+            <div class="flex-1 bg-[#fefae0] p-6 rounded-xl shadow-md">
+              <h2 class="text-center font-semibold text-lg mb-4">Gráfico de Balance</h2>
+              <!-- You can put your chart.js or any chart inside this -->
+              <canvas id="balanceChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="overflow-x-auto"></div>
+      </div>
+    </div>
+  </div>
+</main>
