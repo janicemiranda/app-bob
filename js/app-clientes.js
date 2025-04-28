@@ -46,23 +46,45 @@ formRegistro.addEventListener('submit', function (event) {
 	// Obtener datos del formulario
 	const formData = new FormData(formRegistro);
 	const clientData = {
-		correo: formData.get('correo'),
-		razonSocial: formData.get('razonSocial'),
+		correo: formData.get('correo').trim(),
+		razonSocial: formData.get('razonSocial').trim(),
 		tipoDocumento: formData.get('tipoDocumento'),
-		numeroDocumento: formData.get('numeroDocumento'),
-		numeroCelular: formData.get('numeroCelular'),
+		numeroDocumento: formData.get('numeroDocumento').trim(),
+		numeroCelular: formData.get('numeroCelular').trim(),
 		observaciones: formData.get('observaciones'),
 		activo: true,
 	};
-	debugger;
+	debugger
+	// Validar campos obligatorios
+	if (!clientData.correo) {
+		debugger
+		showNotification('El campo Correo es obligatorio', 'error');
+		return;
+	}
+	
+	if (!clientData.razonSocial) {
+		showNotification('El campo Nombre o Razón Social es obligatorio', 'error');
+		return;
+	}
+
+	if (!clientData.numeroDocumento) {
+		showNotification('El campo Número de Documento es obligatorio', 'error');
+		return;
+	}
+
+	if (!clientData.numeroCelular) {
+		showNotification('El campo Número de Celular es obligatorio', 'error');
+		return;
+	}
+	
 	if (appStateClients.isEditing) {
 		// Actualizar cliente existente
 		updateClient(appStateClients.currentClientId, clientData);
-		showNotification('Cliente actualizado correctamente');
+		showNotification('Cliente actualizado correctamente', 'success');
 	} else {
 		// Crear nuevo cliente
 		addClient(clientData);
-		showNotification('Cliente agregado correctamente');
+		showNotification('Cliente agregado correctamente', 'success');
 	}
 
 	// Cerrar modal y actualizar tabla
@@ -267,6 +289,23 @@ function editClient(id) {
 
 // Confirmar eliminación de cliente
 function confirmDeleteClient(id, nombre) {
+	// Obtener el cliente para verificar su saldo
+	const client = getClientById(id);
+	
+	// Verificar si tiene saldo
+	if ((client.saldoSoles && client.saldoSoles > 0) || (client.saldoDolares && client.saldoDolares > 0)) {
+		// El cliente tiene saldo, mostrar notificación con los detalles y no permitir anulación
+		let mensaje = 'El cliente cuenta con saldo:';
+		if (client.saldoSoles && client.saldoSoles > 0) {
+			mensaje += ` S/ ${client.saldoSoles.toFixed(2)}`;
+		}
+		if (client.saldoDolares && client.saldoDolares > 0) {
+			mensaje += ` $ ${client.saldoDolares.toFixed(2)}`;
+		}
+		showNotification(mensaje, 'error');
+		return;
+	}
+	
 	document.getElementById(
 		'inactivar-confirm-message'
 	).textContent = `¿Estás seguro que deseas inactivar al cliente "${nombre}"?`;
@@ -283,7 +322,7 @@ function confirmDeleteClient(id, nombre) {
 		deleteClient(tempClientId);
 		inactivarModal.classList.add('hidden');
 		renderClientTable();
-		showNotification('Cliente inactivado correctamente');
+		showNotification('Cliente inactivado correctamente', 'success');
 	};
 
 	document.getElementById('cancel-inactivar').onclick = function () {
@@ -313,7 +352,7 @@ function confirmActivateClient(id, nombre) {
 		activateClient(tempClientId);
 		activarModal.classList.add('hidden');
 		renderClientTable();
-		showNotification('Cliente activado correctamente');
+		showNotification('Cliente activado correctamente', 'success');
 	};
 
 	document.getElementById('cancel-activar').onclick = function () {
@@ -331,7 +370,7 @@ function resetForm() {
 }
 
 // Función para mostrar notificaciones temporales
-function showNotification(message, duration = 3000) {
+function showNotification(message, type = 'success', duration = 3000) {
 	// Limpiar cualquier timeout existente
 	if (appStateClients.notificationTimeout) {
 		clearTimeout(appStateClients.notificationTimeout);
@@ -339,6 +378,27 @@ function showNotification(message, duration = 3000) {
 
 	// Establecer el mensaje
 	notificationMessage.textContent = message;
+
+	// Remuevo cualquier clase de tipo anterior
+	notification.classList.remove('bg-emerald-500', 'bg-red-500');
+
+	// Aplicar clases según el tipo de notificación
+	if (type === 'error') {
+		notification.classList.add('bg-red-500');
+		// Cambiar el ícono para error
+		const svgIcon = notification.querySelector('svg');
+		if (svgIcon) {
+			svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+		}
+	} else {
+		// Por defecto, success
+		notification.classList.add('bg-emerald-500');
+		// Restaurar el ícono de éxito
+		const svgIcon = notification.querySelector('svg');
+		if (svgIcon) {
+			svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />';
+		}
+	}
 
 	// Remuevo el hidden
 	notification.classList.remove('hidden');

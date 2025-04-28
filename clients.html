@@ -10,7 +10,7 @@
 	</head>
 	<body class="relative bg-yellow-50 overflow-hidden max-h-screen">
 		<!-- Notificaciones temporales -->
-		<div id="notification" class="notification fixed bottom-4 right-4 bg-emerald-500 text-white rounded-lg px-4 py-3 z-50 max-w-sm hidden">
+		<div id="notification" class="notification fixed bottom-4 right-4 bg-emerald-500 text-white rounded-lg px-4 py-3 z-[9999] max-w-sm hidden shadow-lg shadow-gray-500/50 border-2 border-white">
 			<div class="flex items-center">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -205,7 +205,7 @@
 					<h2 class="mb-4 text-xl font-bold">Nuevo Cliente</h2>
 					<form id="formRegistro" class="space-y-4">
 						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="correo">Correo</label>
+							<label class="block text-gray-700 font-medium mb-1" for="correo">Correo <span class="text-red-500">*</span></label>
 							<input
 								type="email"
 								id="correo"
@@ -215,7 +215,7 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="razonSocial">Nombre o Razon Social</label>
+							<label class="block text-gray-700 font-medium mb-1" for="razonSocial">Nombre o Razon Social <span class="text-red-500">*</span></label>
 							<input
 								type="text"
 								id="razonSocial"
@@ -225,7 +225,7 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="tipoDocumento">Tipo de Documento</label>
+							<label class="block text-gray-700 font-medium mb-1" for="tipoDocumento">Tipo de Documento <span class="text-red-500">*</span></label>
 							<select
 								id="tipoDocumento"
 								name="tipoDocumento"
@@ -237,7 +237,7 @@
 							</select>
 						</div>
 						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="numeroDocumento">Numero de Documento</label>
+							<label class="block text-gray-700 font-medium mb-1" for="numeroDocumento">Numero de Documento <span class="text-red-500">*</span></label>
 							<input
 								type="text"
 								id="numeroDocumento"
@@ -247,7 +247,7 @@
 							/>
 						</div>
 						<div>
-							<label class="block text-gray-700 font-medium mb-1" for="numeroCelular">Numero de Celular</label>
+							<label class="block text-gray-700 font-medium mb-1" for="numeroCelular">Numero de Celular <span class="text-red-500">*</span></label>
 							<input
 								type="text"
 								id="numeroCelular"
@@ -346,6 +346,5 @@
 		<script src="js/persitence.js"></script>
 		<script src="js/store.js"></script>
 		<script src="js/app-clientes.js"></script>
-		<script src="js/app.js""></script>
 	</body>
 </html>

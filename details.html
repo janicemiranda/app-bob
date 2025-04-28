@@ -13,15 +13,6 @@
 </head>
 
 <body class="relative bg-yellow-50 overflow-hidden max-h-screen">
-	<!-- <header class="fixed right-0 top-0 left-60 bg-yellow-50 p-6 h-16">
-		<div class="max-w-4xl mx-auto">
-			<div class="flex content-center">
-				<div class="text-lg font-bold">
-					<h1>Bienvenido</h1>
-				</div>
-			</div>
-		</div>
-	</header> -->
 	<!-- Mobile Top Bar -->
 	<header class="flex items-center justify-between bg-white p-4 shadow md:hidden relative z-50">
 		<button id="menu-toggle" class="text-teal-600 text-3xl focus:outline-none">&#9776;</button>
@@ -29,27 +20,23 @@
 
 		<!-- Dropdown Menu (hidden by default) -->
 		<div id="mobile-menu" class="absolute top-full left-0 w-full bg-white shadow-md rounded-b-xl hidden flex-col">
-			<a
-				href="index.html"
-				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
-			>
+			<a href="index.html"
+				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">
 				Dashboard
 			</a>
-			<a
-				href="clients.html"
+			<a href="clients.html"
 				class="flex items-center bg-[#E0EFF0] rounded-xl font-bold text-sm text-[#266562] py-3 px-4"
-				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
-				>Clientes
+				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">Clientes
 			</a>
-			<a href="#" class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
-				>Logout
+			<a href="#"
+				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4">Logout
 			</a>
 		</div>
 	</header>
 
 	<aside
-	class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50"
->		<div class="flex flex-col justify-between h-full">
+		class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
+		<div class="flex flex-col justify-between h-full">
 			<div class="flex-grow">
 				<div class="p-6">
 					<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" />
@@ -62,7 +49,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
 									class="text-lg mr-4" viewBox="0 0 16 16">
 									<path
-										d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+										d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2z" />
 								</svg>Dashboard
 							</a>
 						</li>
@@ -92,106 +79,119 @@
 			</div>
 		</div>
 	</aside>
-
 	<!-- Reemplaza solo el contenido dentro del <main> por lo siguiente -->
-		<main class="md:ml-60 max-h-screen overflow-y-auto pb-24">
-		<div class="px-6 py-8">
-    <div class="max-w-6xl mx-auto">
-        <div class="bg-white rounded-3xl p-8 mb-5 shadow">
-            <div class="flex flex-col lg:flex-row gap-6">
-                <div class="w-full lg:w-1/2">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="p-4 bg-green-50 rounded-xl shadow-sm">
-                            <p class="text-sm text-green-600 font-medium">Total de Ingresos Soles</p>
-                            <p class="text-2xl font-bold text-green-700">S/ <span
-                                    id="total-ingresos-soles">0.00</span></p>
-                        </div>
-                        <div class="p-4 bg-green-50 rounded-xl shadow-sm">
-                            <p class="text-sm text-green-600 font-medium">Total de Ingresos Dólares</p>
-                            <p class="text-2xl font-bold text-green-700">$ <span
-                                    id="total-ingresos-dolares">0.00</span></p>
-                        </div>
-                        <div class="p-4 bg-red-50 rounded-xl shadow-sm">
-                            <p class="text-sm text-red-600 font-medium">Total de Egresos Soles</p>
-                            <p class="text-2xl font-bold text-red-700">S/ <span id="total-egresos-soles">0.00</span>
-                            </p>
-                        </div>
-                        <div class="p-4 bg-red-50 rounded-xl shadow-sm">
-                            <p class="text-sm text-red-600 font-medium">Total de Egresos Dólares</p>
-                            <p class="text-2xl font-bold text-red-700">$ <span
-                                    id="total-egresos-dolares">0.00</span></p>
-                        </div>
-                        <div class="p-4 bg-blue-50 rounded-xl shadow-sm">
-                            <p class="text-sm text-blue-600 font-medium">Total de Garant. Facturadas Soles</p>
-                            <p class="text-2xl font-bold text-blue-700">S/ <span
-                                    id="total-garantias-soles">0.00</span></p>
-                        </div>
-                        <div class="p-4 bg-orange-50 rounded-xl shadow-sm">
-                            <p class="text-sm text-orange-600 font-medium">Total de Garant. Facturadas Dólares</p>
-                            <p class="text-2xl font-bold text-orange-700">$ <span
-                                    id="total-garantias-dolares">0.00</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full lg:w-1/2">
-                    <div class="flex flex-col items-center">
-                        <h2 class="text-lg text-gray-700 font-semibold mb-4">Gráfico de Balance</h2>
-                        <div class="w-full h-64">
-                            <canvas id="balanceChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-		<div class="px-6 py-0">
+	<main class="md:ml-60 max-h-screen overflow-y-auto pb-24">
+		<div class="px-6 py-4">
 			<div class="max-w-6xl mx-auto">
-				<!-- -->
-				<div class="bg-white rounded-3xl p-8 mb-5 shadow">
-					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+				<div class="bg-white rounded-3xl p-6 mb-3 shadow">
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
 						<!-- Cliente Info -->
 						<div>
 							<h1 class="text-l text-gray-500 mb-2">Cliente</h1>
 							<p class="text-2xl font-bold text-gray-900 client-name" id="client-name"></p>
-				
+
 							<p class="mt-1">
 								<span class="text-gray-500">Email:</span>
-								<a href="mailto:email@cliente.com" class="text-black client-email" id="client-email"></a>
+								<a href="mailto:email@cliente.com" class="text-black client-email"
+									id="client-email"></a>
 							</p>
-				
+
 							<p>
 								<span class="text-gray-500" id="client-tipo-documento"></span>
 								<span class="text-black client-dni" id="client-numero-documento"></span>
 							</p>
 						</div>
-				
+
 						<!-- Nueva Garantía Button -->
 						<div class="flex justify-center md:justify-end">
 							<button id="btnNuevoMovimiento"
 								class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition">
-								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+									viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
 								</svg>
 								Nueva Garantía
 							</button>
+							<button id="btn-historial-egresos"
+								class="flex items-center px-4 py-2 bg-amber-500 text-white rounded-lg shadow hover:bg-amber-600 transition ml-2">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+									stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+								</svg>
+								Historial Egresos
+							</button>
 						</div>
 					</div>
-				
+				</div>
+			</div>
+		</div>
+		<div class="px-6 py-2">
+			<div class="max-w-6xl mx-auto">
+				<div class="bg-white rounded-3xl p-6 mb-3 shadow">
+					<div class="flex flex-col lg:flex-row gap-4">
+						<div class="w-full lg:w-1/2">
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+								<div class="p-3 bg-green-50 rounded-xl shadow-sm">
+									<p class="text-sm text-green-600 font-medium">Total de Balance Soles</p>
+									<p class="text-2xl font-bold text-green-700">S/ <span
+											id="total-balance-soles">0.00</span></p>
+								</div>
+								<div class="p-3 bg-green-50 rounded-xl shadow-sm">
+									<p class="text-sm text-green-600 font-medium">Total de Balance Dólares</p>
+									<p class="text-2xl font-bold text-green-700">$ <span
+											id="total-balance-dolares">0.00</span></p>
+								</div>
+								<div class="p-3 bg-blue-50 rounded-xl shadow-sm">
+									<p class="text-sm text-blue-600 font-medium">Total de Garant. Facturadas Soles</p>
+									<p class="text-2xl font-bold text-blue-700">S/ <span
+											id="total-garantias-soles">0.00</span></p>
+								</div>
+								<div class="p-3 bg-orange-50 rounded-xl shadow-sm">
+									<p class="text-sm text-orange-600 font-medium">Total de Garant. Facturadas Dólares
+									</p>
+									<p class="text-2xl font-bold text-orange-700">$ <span
+											id="total-garantias-dolares">0.00</span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="w-full lg:w-1/2">
+							<div class="flex flex-col items-center">
+								<h2 class="text-lg text-gray-700 font-semibold mb-2">Gráfico de Balance</h2>
+								<div class="w-full h-64">
+									<canvas id="balanceChart"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="px-6 py-0">
+			<div class="max-w-6xl mx-auto">
+				<div class="bg-white rounded-3xl p-6 mb-3 shadow">
 					<!-- Tabla de Movimientos -->
-					<div class="overflow-x-auto mt-6">
+					<div class="overflow-x-auto mt-2">
 						<table class="min-w-full divide-y divide-gray-200" id="movimientosTable">
 							<thead class="bg-yellow-100">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Movimiento</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Fecha Subasta</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Banco</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nro. Cuenta</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Moneda</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Importe</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Estado</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Accion</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">
+										Movimiento</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Fecha
+										Subasta</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Banco
+									</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nro.
+										Cuenta</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Moneda
+									</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">
+										Importe</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Estado
+									</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Accion
+									</th>
 								</tr>
 							</thead>
 							<tbody class="bg-white divide-y divide-gray-100" id="clientesTableBody">
@@ -200,7 +200,6 @@
 						</table>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 		<!-- Modal para Nuevo Registro de Movimiento -->
@@ -216,7 +215,8 @@
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 						<!-- Campo: Movimiento -->
 						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="movimiento">Movimiento</label>
+							<label class="mb-1 block font-medium text-gray-700" for="movimiento">Movimiento <span
+									class="text-red-500">*</span></label>
 							<select id="movimiento" name="movimiento" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
 								<option value="">Seleccione</option>
@@ -228,7 +228,7 @@
 						<!-- Campo: Placa -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="placaVehiculo">Placa del
-								Vehículo</label>
+								Vehículo <span class="text-red-500">*</span></label>
 							<input type="text" id="placaVehiculo" name="placaVehiculo"
 								placeholder="Escribir placa del vehículo" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
@@ -237,7 +237,7 @@
 						<!-- Campo: Empresa -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="empresaVehiculo">Empresa del
-								Vehículo</label>
+								Vehículo <span class="text-red-500">*</span></label>
 							<select id="empresaVehiculo" name="empresaVehiculo" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
 								<option value="">Seleccione</option>
@@ -250,7 +250,7 @@
 						<!-- Campo: Nombre de Empresa de Vehículo -->
 						<div id="nombreEmpresaVehiculoDiv" hidden>
 							<label class="mb-1 block font-medium text-gray-700" for="nombreEmpresaVehiculo">Nombre de
-								Empresa de Vehículo</label>
+								Empresa de Vehículo <span class="text-red-500">*</span></label>
 							<input type="text" id="nombreEmpresaVehiculo" name="nombreEmpresaVehiculo"
 								placeholder="Escribir nombre de empresa de vehículo"
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
@@ -259,14 +259,15 @@
 						<!-- Campo: Fecha -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="fechaSubasta">Fecha de
-								Subasta</label>
+								Subasta <span class="text-red-500">*</span></label>
 							<input type="date" id="fechaSubasta" name="fechaSubasta"
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
 						</div>
 
 						<!-- Campo: Moneda e Importe -->
 						<div>
-							<label class="mb-1 block font-medium text-gray-700" for="moneda">Moneda e Importe</label>
+							<label class="mb-1 block font-medium text-gray-700" for="moneda">Moneda e Importe <span
+									class="text-red-500">*</span></label>
 							<div class="flex space-x-2">
 								<select id="moneda" name="moneda" required
 									class="w-1/3 rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
@@ -281,7 +282,7 @@
 						<!-- Campo: Entidad Financiera -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="nombreEntidadFinanciera">Entidad
-								Financiera</label>
+								Financiera <span class="text-red-500">*</span></label>
 							<select id="nombreEntidadFinanciera" name="nombreEntidadFinanciera"
 								placeholder="Escribir nombre de entidad financiera" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
@@ -295,7 +296,8 @@
 						<!-- Campo: Nombre de Entidad Financiera -->
 						<div id="nombreEntidadFinancieraDiv" hidden>
 							<label class="mb-1 block font-medium text-gray-700"
-								for="nombreEntidadFinancieraInput">Nombre de Entidad Financiera</label>
+								for="nombreEntidadFinancieraInput">Nombre de Entidad Financiera <span
+									class="text-red-500">*</span></label>
 							<input type="text" id="nombreEntidadFinancieraInput" name="nombreEntidadFinancieraOtros"
 								placeholder="Escribir nombre de entidad financiera"
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
@@ -304,7 +306,7 @@
 						<!-- Campo: Número de Cuenta -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="numeroCuenta">Numero de
-								Cuenta</label>
+								Cuenta <span class="text-red-500">*</span></label>
 							<input type="text" id="numeroCuenta" name="numeroCuenta"
 								placeholder="Numero de Cuenta desde la que se hizo el depósito" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
@@ -313,7 +315,7 @@
 						<!-- Campo: RUC/DNI -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="datosFacturacionNumero">RUC/DNI
-								Facturación</label>
+								Facturación <span class="text-red-500">*</span></label>
 							<input type="text" id="datosFacturacionNumero" name="datosFacturacionNumero"
 								placeholder="Escribir Ruc o DNI" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
@@ -322,7 +324,7 @@
 						<!-- Campo: Nombre Facturación -->
 						<div>
 							<label class="mb-1 block font-medium text-gray-700" for="datosFacturacionNombre">Nombre
-								Facturación</label>
+								Facturación <span class="text-red-500">*</span></label>
 							<input type="text" id="datosFacturacionNombre" name="datosFacturacionNombre"
 								placeholder="Escribir nombre completo o RUC" required
 								class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" />
@@ -332,7 +334,7 @@
 					<!-- Comentario (ocupa todo el ancho) -->
 					<div>
 						<label class="mb-1 block font-medium text-gray-700" for="comentario">Comentario</label>
-						<textarea id="comentario" name="comentario" placeholder="Escribir comentario" required
+						<textarea id="comentario" name="comentario" placeholder="Escribir comentario"
 							class="w-full rounded border px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
 							rows="3"></textarea>
 					</div>
@@ -430,10 +432,106 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal de confirmación para devolver garantía -->
+	<div id="devolver-transaccion-modal"
+		class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+		<div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 transform transition-transform">
+			<div
+				class="border-b border-gray-200 px-6 py-4 flex justify-between items-center bg-gradient-to-r from-amber-50 to-yellow-50">
+				<h3 class="text-xl font-semibold text-gray-800">Confirmar devolución</h3>
+				<button id="close-devolver-modal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="p-6">
+				<p class="mb-4 text-gray-700">Por favor, ingrese el monto a devolver:</p>
+
+				<div class="mb-4">
+					<label class="block text-gray-700 text-sm font-bold mb-2" for="monto-devolver">
+						Monto a devolver:
+					</label>
+					<input type="number" id="monto-devolver"
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						placeholder="0.00" min="0.01" step="0.01" required />
+					<input type="hidden" id="devolver-transaction-id" />
+				</div>
+
+				<div class="flex justify-end space-x-3">
+					<button id="cancel-devolver"
+						class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md transition-colors">
+						Cancelar
+					</button>
+					<button id="confirm-devolver"
+						class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-md transition-colors">
+						Confirmar devolución
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal de historial de egresos -->
+	<div id="historial-egresos-modal"
+		class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+		<div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 transform transition-transform">
+			<div
+				class="border-b border-gray-200 px-6 py-4 flex justify-between items-center bg-gradient-to-r from-amber-50 to-yellow-50">
+				<h3 class="text-xl font-semibold text-gray-800">Historial de Devoluciones</h3>
+				<button id="close-historial-modal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="p-6 max-h-[70vh] overflow-auto">
+				<div class="overflow-x-auto">
+					<table class="min-w-full bg-white">
+						<thead class="bg-gray-100">
+							<tr>
+								<th
+									class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+									Fecha
+								</th>
+								<th
+									class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+									Garantía ID
+								</th>
+								<th
+									class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+									Moneda
+								</th>
+								<th
+									class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+									Monto Devuelto
+								</th>
+							</tr>
+						</thead>
+						<tbody id="historial-egresos-table-body" class="divide-y divide-gray-200">
+							<!-- Contenido del historial de egresos se cargará dinámicamente -->
+						</tbody>
+					</table>
+				</div>
+				<div id="no-egresos-message" class="text-center text-gray-500 py-4 hidden">
+					No hay devoluciones registradas para este cliente.
+				</div>
+			</div>
+			<div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+				<button id="close-historial-btn"
+					class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md transition-colors">
+					Cerrar
+				</button>
+			</div>
+		</div>
+	</div>
 
 	<!-- Notificaciones temporales -->
 	<div id="notification"
-		class="notification fixed bottom-4 right-4 bg-emerald-500 text-white rounded-lg px-4 py-3 z-50 max-w-sm hidden">
+		class="notification fixed bottom-4 right-4 bg-emerald-500 text-white rounded-lg px-4 py-3 z-[9999] max-w-sm hidden shadow-lg shadow-gray-500/50 border-2 border-white">
 		<div class="flex items-center">
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
 				stroke="currentColor">
@@ -447,7 +545,6 @@
 	<script src="js/persitence.js"></script>
 	<script src="js/store.js"></script>
 	<script src="js/app-transaction.js"></script>
-	<script src="js/app.js""></script>
 </body>
 
 </html>

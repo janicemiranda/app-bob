@@ -13,7 +13,9 @@ const nombreEntidadFinancieraInput = document.getElementById('nombreEntidadFinan
 // Mostrar modal al hacer clic en "Nuevo Movimiento"
 btnNuevoMovimiento.addEventListener('click', function() {
     resetTransactionForm();
+    document.querySelector('#modalRegistro h2').textContent = 'Nueva Garantía';
     modalRegistro.removeAttribute('hidden');
+
 });
 // Ocultar modal al hacer clic en el botón de cierre
 closeModalRegistro.addEventListener('click', function() {
@@ -36,7 +38,7 @@ const appStateTransactions = {
     notificationTimeout: null, // Para controlar el timeout de las notificaciones
     isEditing: false, // Para controlar si estamos editando o agregando
     searchTerm: "", // Término de búsqueda para filtrar transacciones
-    currentClientId: null, // ID del cliente actual
+    clientId: null, // ID del cliente actual
     balanceChart: null // Referencia al objeto chart
 }
 
@@ -80,7 +82,7 @@ function loadClientData() {
     const clientId = getUrlParameter('clientId');
     
     if (clientId) {
-        appStateTransactions.currentClientId = clientId;
+        appStateTransactions.clientId = clientId;
         
         // Obtener datos del cliente desde el store
         const client = window.clientStore.getById(clientId);
@@ -109,7 +111,7 @@ function loadClientData() {
 function addTransaction(transactionData) {
     const newTransaction = new Transaction(
         null, // El ID se generará automáticamente
-        appStateTransactions.currentClientId, // ID del cliente actual
+        appStateTransactions.clientId, // ID del cliente actual
         transactionData.movimiento, // tipo: Ingreso o Egreso
         transactionData.placaVehiculo,
         transactionData.empresaVehiculo === 'otros' ? transactionData.nombreEmpresaVehiculo : transactionData.empresaVehiculo,
@@ -200,10 +202,10 @@ function changeTransactionToPaid(id) {
 
 // Obtener todas las transacciones del cliente actual
 function getClientTransactions() {
-    if (!appStateTransactions.currentClientId) return [];
+    if (!appStateTransactions.clientId) return [];
     
     return window.transactionStore.getState().filter(
-        transaction => transaction.clienteId === appStateTransactions.currentClientId
+        transaction => transaction.clienteId === appStateTransactions.clientId
     );
 }
 
@@ -223,19 +225,14 @@ function updateClientBalance(transaction) {
     
     // Calcular nuevo saldo basado en moneda y tipo de transacción
     if (transaction.moneda === 'pen') {
-        if (transaction.tipo === 'ingreso') {
+        if (transaction.tipo === 'ingreso' && transaction.estado === 'Pendiente') {
             client.saldoSoles += amount;
-        } else if (transaction.tipo === 'egreso') {
-            client.saldoSoles -= amount;
         }
     } else if (transaction.moneda === 'usd') {
-        if (transaction.tipo === 'ingreso') {
+        if (transaction.tipo === 'ingreso' && transaction.estado === 'Pendiente') {
             client.saldoDolares += amount;
-        } else if (transaction.tipo === 'egreso') {
-            client.saldoDolares -= amount;
         }
     }
-    
     // Actualizar cliente en el store
     window.clientStore.update(client.id, {
         saldoSoles: client.saldoSoles,
@@ -324,23 +321,38 @@ function renderTransactionTable() {
             <td class="px-4 py-3 ${transaction.estado === 'Facturado' ? 'text-green-600' : transaction.estado === 'Devuelto' ? 'text-red-600' : 'text-orange-600'}">${transaction.estado}</td>
             <td class="px-4 py-3">
                 <div class="flex space-x-2">
+                    
+                    ${transaction.estado == 'Pendiente' ? 
+                    `
                     <button class="text-blue-600 hover:text-blue-800" data-action="edit-transaction" data-id="${transaction.id}" title="Editar Transacción">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                         </svg>
                     </button>
-                    ${transaction.estado !== 'Pagado' ? 
-                    `<button class="text-green-600 hover:text-green-800" data-action="change-state" data-id="${transaction.id}" title="Marcar como Pagado">
+                    <button class="text-green-600 hover:text-green-800" data-action="change-state" data-id="${transaction.id}" title="Marcar como Pagado">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                    </button>` : ''
-                    }
+                    </button>
+                    <button class="text-amber-600 hover:text-amber-800" data-action="devolver-transaction" data-id="${transaction.id}" title="Devolver Garantía">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                        </svg>
+                    </button>
                     <button class="text-red-600 hover:text-red-800" data-action="delete-transaction" data-id="${transaction.id}" title="Eliminar Transacción">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                         </svg>
                     </button>
+                    ` : 
+                    `
+                    <button class="text-blue-600 hover:text-blue-800" data-action="detalle-transaction" data-id="${transaction.id}" title="Editar Transacción">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </button>
+                    `
+                    }
                 </div>
             </td>
         `;
@@ -360,7 +372,6 @@ function updateTotals(transactions) {
     let totalEgresosDolares = 0;
     let totalGarantiasSoles = 0;
     let totalGarantiasDolares = 0;
-    
     transactions.forEach(transaction => {
         if (!transaction.activo) return;
         
@@ -399,18 +410,27 @@ function updateTotals(transactions) {
         }
     });
     
+    // Calcular balance total (ingresos - egresos)
+    const balanceSoles = totalIngresosSoles - totalEgresosSoles - totalGarantiasSoles;
+    const balanceDolares = totalIngresosDolares - totalEgresosDolares - totalGarantiasDolares;
+    
     // Actualizar los elementos HTML con los totales
-    document.getElementById('total-ingresos-soles').textContent = (totalIngresosSoles - totalGarantiasSoles).toFixed(2);
-    document.getElementById('total-ingresos-dolares').textContent = (totalIngresosDolares - totalGarantiasDolares).toFixed(2);
-    document.getElementById('total-egresos-soles').textContent = totalEgresosSoles.toFixed(2);
-    document.getElementById('total-egresos-dolares').textContent = totalEgresosDolares.toFixed(2);
+    document.getElementById('total-balance-soles').textContent = balanceSoles.toFixed(2);
+    document.getElementById('total-balance-dolares').textContent = balanceDolares.toFixed(2);
     document.getElementById('total-garantias-soles').textContent = totalGarantiasSoles.toFixed(2);
     document.getElementById('total-garantias-dolares').textContent = totalGarantiasDolares.toFixed(2);
     
-    const totalSoles = totalIngresosSoles - totalEgresosSoles - totalGarantiasSoles;
-    const totalDolares = totalIngresosDolares - totalEgresosDolares - totalGarantiasDolares;
-    // Actualizar el gráfico de balance
+    // Actualizar el gráfico de balance (balance sin las garantías facturadas)
+    const totalSoles = balanceSoles;
+    const totalDolares = balanceDolares;
     updateBalanceChart(totalSoles, totalDolares);
+    debugger
+    // Actualizar cliente en el store
+    window.clientStore.update(appStateTransactions.clientId, {
+        saldoSoles: balanceSoles,
+        saldoDolares: balanceDolares,
+        updatedAt: new Date()
+    });
 }
 
 // Crear y actualizar el gráfico circular de balance
@@ -504,29 +524,97 @@ function handleTransactionFormSubmit(event) {
     // Obtener datos del formulario
     const formData = new FormData(event.target);
     const transactionData = {
-        movimiento: formData.get('movimiento'),
-        placaVehiculo: formData.get('placaVehiculo'),
-        empresaVehiculo: formData.get('empresaVehiculo'),
-        nombreEmpresaVehiculo: formData.get('nombreEmpresaVehiculo'),
-        fechaSubasta: formData.get('fechaSubasta'),
-        moneda: formData.get('moneda'),
-        importe: formData.get('importe'),
-        nombreEntidadFinanciera: formData.get('nombreEntidadFinanciera'),
-        nombreEntidadFinancieraOtros: formData.get('nombreEntidadFinancieraOtros'),
-        numeroCuenta: formData.get('numeroCuenta'),
-        datosFacturacionNumero: formData.get('datosFacturacionNumero'),
-        datosFacturacionNombre: formData.get('datosFacturacionNombre'),
-        comentario: formData.get('comentario')
+        movimiento: formData.get('movimiento').trim(),
+        placaVehiculo: formData.get('placaVehiculo').trim(),
+        empresaVehiculo: formData.get('empresaVehiculo').trim(),
+        nombreEmpresaVehiculo: formData.get('nombreEmpresaVehiculo').trim(),
+        fechaSubasta: formData.get('fechaSubasta').trim(),
+        moneda: formData.get('moneda').trim(),
+        importe: formData.get('importe').trim(),
+        nombreEntidadFinanciera: formData.get('nombreEntidadFinanciera').trim(),
+        nombreEntidadFinancieraOtros: formData.get('nombreEntidadFinancieraOtros').trim(),
+        numeroCuenta: formData.get('numeroCuenta').trim(),
+        datosFacturacionNumero: formData.get('datosFacturacionNumero').trim(),
+        datosFacturacionNombre: formData.get('datosFacturacionNombre').trim(),
+        comentario: formData.get('comentario').trim()
     };
+    
+    // Validar campos obligatorios
+    if (!transactionData.movimiento) {
+        showNotification('El campo Movimiento es obligatorio', 'error');
+        return;
+    }
+    
+    if (!transactionData.placaVehiculo) {
+        showNotification('El campo Placa del Vehículo es obligatorio', 'error');
+        return;
+    }
+    
+    if (!transactionData.empresaVehiculo) {
+        showNotification('El campo Empresa del Vehículo es obligatorio', 'error');
+        return;
+    }
+    
+    // Validar que si se seleccionó "otros" en empresa, se ingrese el nombre
+    if (transactionData.empresaVehiculo === 'otros' && !transactionData.nombreEmpresaVehiculo) {
+        showNotification('Debe ingresar el Nombre de la Empresa del Vehículo', 'error');
+        return;
+    }
+    
+    if (!transactionData.fechaSubasta) {
+        showNotification('El campo Fecha de Subasta es obligatorio', 'error');
+        return;
+    }
+    
+    if (!transactionData.moneda) {
+        showNotification('El campo Moneda es obligatorio', 'error');
+        return;
+    }
+    
+    if (!transactionData.importe) {
+        showNotification('El campo Importe es obligatorio', 'error');
+        return;
+    }
+
+    if (transactionData.importe <= 0) {
+        showNotification('El campo Importe debe ser mayor a 0', 'error');
+        return;
+    }
+    
+    if (!transactionData.nombreEntidadFinanciera) {
+        showNotification('El campo Entidad Financiera es obligatorio', 'error');
+        return;
+    }
+    
+    // Validar que si se seleccionó "otros" en entidad financiera, se ingrese el nombre
+    if (transactionData.nombreEntidadFinanciera === 'otros' && !transactionData.nombreEntidadFinancieraOtros) {
+        showNotification('Debe ingresar el Nombre de la Entidad Financiera', 'error');
+        return;
+    }
+    
+    if (!transactionData.numeroCuenta) {
+        showNotification('El campo Número de Cuenta es obligatorio', 'error');
+        return;
+    }
+    
+    if (!transactionData.datosFacturacionNumero) {
+        showNotification('El campo RUC/DNI Facturación es obligatorio', 'error');
+        return;
+    }
+    
+    if (!transactionData.datosFacturacionNombre) {
+        showNotification('El campo Nombre Facturación es obligatorio', 'error');
+        return;
+    }
     
     if (appStateTransactions.isEditing) {
         // Actualizar transacción existente
         updateTransaction(appStateTransactions.currentTransactionId, transactionData);
-        showNotification('Transacción actualizada correctamente');
+        showNotification('Transacción actualizada correctamente', 'success');
     } else {
         // Crear nueva transacción
         addTransaction(transactionData);
-        showNotification('Transacción registrada correctamente');
+        showNotification('Transacción registrada correctamente', 'success');
     }
     
     // Cerrar modal y actualizar tabla
@@ -540,10 +628,15 @@ function editTransaction(id) {
     const transaction = getTransactionById(id);
     if (!transaction) return;
     
+    // Resetear el formulario primero para asegurar que todos los campos estén habilitados
+    resetTransactionForm();
+
     // Cambiar estado de la aplicación
     appStateTransactions.isEditing = true;
     appStateTransactions.currentTransactionId = id;
     
+    // Cambiar título del modal
+    document.querySelector('#modalRegistro h2').textContent = 'Editar Garantía';
     // Llenar el formulario con los datos de la transacción
     document.getElementById('movimiento').value = transaction.tipo;
     document.getElementById('placaVehiculo').value = transaction.placaVehiculo;
@@ -593,8 +686,23 @@ function resetTransactionForm() {
     // Resetear estado
     appStateTransactions.isEditing = false;
     appStateTransactions.currentTransactionId = null;
-}
 
+    // Restaurar título del modal
+    document.querySelector('#modalRegistro h2').textContent = 'Detalle Garantía';
+    
+    // Habilitar todos los campos del formulario
+    const formElements = document.getElementById('formRegistro').elements;
+    for (let i = 0; i < formElements.length; i++) {
+        formElements[i].disabled = false;
+    }
+    
+    // Mostrar botón de guardar y restaurar texto del botón cancelar
+    const submitButton = document.querySelector('#formRegistro button[type="submit"]');
+    if (submitButton) submitButton.style.display = '';
+    
+    const cancelButton = document.getElementById('cancelarRegistro');
+    if (cancelButton) cancelButton.textContent = 'Cancelar';
+}
 // Función para mostrar notificaciones temporales
 function showNotification(message, type = 'success', duration = 3000) {
     const notification = document.getElementById('notification');
@@ -607,19 +715,38 @@ function showNotification(message, type = 'success', duration = 3000) {
         clearTimeout(appStateTransactions.notificationTimeout);
     }
     
-    // Configurar color según tipo
-    notification.className = 'notification fixed bottom-4 right-4 text-white rounded-lg px-4 py-3 z-50 max-w-sm';
+    // Establecer el mensaje
+    notificationMessage.textContent = message;
     
-    if (type === 'success') {
-        notification.classList.add('bg-emerald-500');
-    } else if (type === 'error') {
+    // Remuevo cualquier clase de tipo anterior
+    notification.classList.remove('bg-emerald-500', 'bg-red-500', 'bg-amber-500');
+    
+    // Aplicar clases según el tipo de notificación
+    if (type === 'error') {
         notification.classList.add('bg-red-500');
+        // Cambiar el ícono para error
+        const svgIcon = notification.querySelector('svg');
+        if (svgIcon) {
+            svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+        }
     } else if (type === 'warning') {
         notification.classList.add('bg-amber-500');
+        // Cambiar ícono para advertencia
+        const svgIcon = notification.querySelector('svg');
+        if (svgIcon) {
+            svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />';
+        }
+    } else {
+        // Por defecto, success
+        notification.classList.add('bg-emerald-500');
+        // Restaurar el ícono de éxito
+        const svgIcon = notification.querySelector('svg');
+        if (svgIcon) {
+            svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />';
+        }
     }
     
-    // Mostrar nueva notificación
-    notificationMessage.textContent = message;
+    // Remuevo el hidden
     notification.classList.remove('hidden');
     
     // Ocultar después del tiempo especificado
@@ -654,6 +781,66 @@ function confirmChangeTransactionState(id) {
     modal.classList.remove('hidden');
 }
 
+//visualización (solo lectura)
+function viewTransactionDetails(id) {
+    const transaction = getTransactionById(id);
+    if (!transaction) return;
+    
+    // Cambiar título del modal
+    document.querySelector('#modalRegistro h2').textContent = 'Detalle de Garantía';
+    
+    // Llenar el formulario con los datos de la transacción
+    document.getElementById('movimiento').value = transaction.tipo;
+    document.getElementById('placaVehiculo').value = transaction.placaVehiculo;
+    
+    // Manejar campo de empresa
+    if (['santander', 'acceso'].includes(transaction.empresaVehiculo)) {
+        document.getElementById('empresaVehiculo').value = transaction.empresaVehiculo;
+        nombreEmpresaVehiculoDiv.setAttribute('hidden', '');
+    } else {
+        document.getElementById('empresaVehiculo').value = 'otros';
+        nombreEmpresaVehiculoDiv.removeAttribute('hidden');
+        document.getElementById('nombreEmpresaVehiculo').value = transaction.empresaVehiculo;
+    }
+    
+    document.getElementById('fechaSubasta').value = transaction.fechaSubasta;
+    document.getElementById('moneda').value = transaction.moneda;
+    document.getElementById('importe').value = transaction.monto;
+    
+    // Manejar campo de entidad financiera
+    if (['bcp', 'interbank'].includes(transaction.banco)) {
+        document.getElementById('nombreEntidadFinanciera').value = transaction.banco;
+        nombreEntidadFinancieraDiv.setAttribute('hidden', '');
+    } else {
+        document.getElementById('nombreEntidadFinanciera').value = 'otros';
+        nombreEntidadFinancieraDiv.removeAttribute('hidden');
+        document.getElementById('nombreEntidadFinancieraInput').value = transaction.banco;
+    }
+    
+    document.getElementById('numeroCuenta').value = transaction.numCuentaDeposito;
+    document.getElementById('datosFacturacionNumero').value = transaction.dtFacDocumento;
+    document.getElementById('datosFacturacionNombre').value = transaction.dtNroFacDocumento;
+    document.getElementById('comentario').value = transaction.concepto;
+    
+    // Deshabilitar todos los campos del formulario
+    const formElements = document.getElementById('formRegistro').elements;
+    for (let i = 0; i < formElements.length; i++) {
+        formElements[i].disabled = true;
+    }
+    
+    // Ocultar botón de guardar y cambiar texto del botón cancelar a "Cerrar"
+    const submitButton = document.querySelector('#formRegistro button[type="submit"]');
+    if (submitButton) submitButton.style.display = 'none';
+    
+    const cancelButton = document.getElementById('cancelarRegistro');
+    if (cancelButton) {
+        cancelButton.textContent = 'Cerrar';
+        cancelButton.disabled = false;
+    }
+    // Mostrar modal
+    modalRegistro.removeAttribute('hidden');
+}
+
 // Agregar event listeners para las acciones de la tabla
 function setupTransactionTableListeners() {
     // Listener para botones en la tabla de transacciones
@@ -670,7 +857,12 @@ function setupTransactionTableListeners() {
             confirmDeleteTransaction(id);
         } else if (action === 'change-state') {
             confirmChangeTransactionState(id);
+        } else if (action === 'devolver-transaction') {
+            confirmDevolverTransaction(id);
+        } else if (action === 'detalle-transaction') {
+            viewTransactionDetails(id);
         }
+        
     });
     
     // Listeners para modal de eliminación
@@ -716,6 +908,28 @@ function setupTransactionTableListeners() {
         
         document.getElementById('cambiar-estado-modal').classList.add('hidden');
     });
+    
+    // Listeners para modal de devolución de garantía
+    document.getElementById('close-devolver-modal').addEventListener('click', function() {
+        document.getElementById('devolver-transaccion-modal').classList.add('hidden');
+    });
+    
+    document.getElementById('cancel-devolver').addEventListener('click', function() {
+        document.getElementById('devolver-transaccion-modal').classList.add('hidden');
+    });
+    
+    document.getElementById('confirm-devolver').addEventListener('click', function() {
+        const id = document.getElementById('devolver-transaction-id').value;
+        
+        if (devolverTransaction(id)) {
+            showNotification('Garantía devuelta correctamente');
+            renderTransactionTable();
+        } else {
+            showNotification('Error al devolver la garantía', 'error');
+        }
+        
+        document.getElementById('devolver-transaccion-modal').classList.add('hidden');
+    });
 }
 
 // Inicializar el store de transacciones
@@ -723,6 +937,52 @@ function initTransactionStore() {
     if (!window.transactionStore) {
         window.transactionStore = new Store('transactions', loadTransactions, saveTransactions);
     }
+}
+
+// Función para renderizar el historial de egresos
+function renderEgresosHistory(clientId) {
+    const egresos = getClienteEgresos(clientId);
+    const tableBody = document.getElementById('historial-egresos-table-body');
+    const noEgresosMessage = document.getElementById('no-egresos-message');
+    
+    tableBody.innerHTML = '';
+    
+    if (egresos.length === 0) {
+        tableBody.innerHTML = '';
+        noEgresosMessage.classList.remove('hidden');
+        return;
+    }
+    
+    noEgresosMessage.classList.add('hidden');
+    
+    // Ordenar egresos por fecha (más reciente primero)
+    egresos.sort((a, b) => new Date(b.fechaHoraEgreso) - new Date(a.fechaHoraEgreso));
+    
+    egresos.forEach(egreso => {
+        const row = document.createElement('tr');
+        
+        // Formatear fecha
+        const fecha = new Date(egreso.fechaHoraEgreso);
+        const fechaFormateada = fecha.toLocaleDateString('es-ES') + ' ' + fecha.toLocaleTimeString('es-ES', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        // Formatear importe con 2 decimales
+        const importeFormateado = parseFloat(egreso.importeDevolver).toFixed(2);
+        
+        // Contenido de la fila
+        row.innerHTML = `
+            <td class="px-4 py-3">${fechaFormateada}</td>
+            <td class="px-4 py-3">${egreso.idGarantia}</td>
+            <td class="px-4 py-3">${egreso.moneda === 'pen' ? 'Soles' : 'Dólares'}</td>
+            <td class="px-4 py-3 font-medium text-red-600">
+                ${egreso.moneda === 'pen' ? 'S/' : '$'} ${importeFormateado}
+            </td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
 }
 
 // Inicializar la aplicación
@@ -739,4 +999,105 @@ document.addEventListener('DOMContentLoaded', function() {
     setupTransactionTableListeners();
     // Configurar listener para el formulario
     document.getElementById('formRegistro').addEventListener('submit', handleTransactionFormSubmit);
+    
+    // Configurar listeners para el historial de egresos
+    document.getElementById('btn-historial-egresos').addEventListener('click', function() {
+        // Cargar historial de egresos
+        renderEgresosHistory(appStateTransactions.clientId);
+        // Mostrar el modal
+        document.getElementById('historial-egresos-modal').classList.remove('hidden');
+    });
+    
+    document.getElementById('close-historial-modal').addEventListener('click', function() {
+        document.getElementById('historial-egresos-modal').classList.add('hidden');
+    });
+    
+    document.getElementById('close-historial-btn').addEventListener('click', function() {
+        document.getElementById('historial-egresos-modal').classList.add('hidden');
+    });
 });
+// Función para devolver garantía
+function devolverTransaction(id) {
+    const transactions = getClientTransactions();
+    const transaction = getTransactionById(id);
+    if (!transaction) return false;
+    
+    const montoDevolver = parseFloat(document.getElementById('monto-devolver').value);
+    
+    if (isNaN(montoDevolver) || montoDevolver <= 0) {
+        showNotification('Por favor, ingrese un monto válido', 'error');
+        return false;
+    }
+    
+    // Verificar que el monto a devolver no sea mayor que el monto de la garantía
+    if (montoDevolver > parseFloat(transaction.monto)) {
+        showNotification('El monto a devolver no puede ser mayor que el monto de la garantía', 'error');
+        return false;
+    }
+    
+    // Si es una devolución parcial, actualizar el monto
+    let nuevoMonto = parseFloat(transaction.monto) - montoDevolver;
+    let nuevoEstado = nuevoMonto <= 0 ? 'Devuelto' : transaction.estado;
+    
+    // Guardar el registro de egreso (devolución)
+    saveEgreso({
+        id: generateUniqueId(),
+        idGarantia: id,
+        idCliente: transaction.clienteId,
+        importeDevolver: montoDevolver,
+        fechaHoraEgreso: new Date().toISOString(),
+        moneda: transaction.moneda
+    });
+    
+    // Actualizar el estado y monto de la transacción
+    const updated = window.transactionStore.update(id, {
+        estado: nuevoEstado,
+        monto: nuevoMonto.toFixed(2),
+        updatedAt: new Date().toISOString()
+    });
+    
+    if (updated) {
+        updateTotals(transactions);
+        return true;
+    }
+    
+    return false;
+}
+
+// Confirmar devolución de garantía
+function confirmDevolverTransaction(id) {
+    const transaction = getTransactionById(id);
+    if (!transaction) return;
+    
+    // Preparar el modal
+    document.getElementById('devolver-transaction-id').value = id;
+    document.getElementById('monto-devolver').value = transaction.monto;
+    
+    // Mostrar modal
+    const modal = document.getElementById('devolver-transaccion-modal');
+    modal.classList.remove('hidden');
+}
+
+// Función para guardar egresos en localStorage
+function saveEgreso(egreso) {
+    let egresos = getEgresos();
+    egresos.push(egreso);
+    localStorage.setItem('Egresos', JSON.stringify(egresos));
+}
+
+// Función para obtener egresos de localStorage
+function getEgresos() {
+    const egresos = localStorage.getItem('Egresos');
+    return egresos ? JSON.parse(egresos) : [];
+}
+
+// Función para obtener egresos de un cliente específico
+function getClienteEgresos(idCliente) {
+    const egresos = getEgresos();
+    return egresos.filter(egreso => egreso.idCliente === idCliente);
+}
+
+// Función para generar un ID único
+function generateUniqueId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
