@@ -3,6 +3,10 @@ const totalClienteStats = document.getElementById('totalClientes');
 const totalClientesHoy = document.getElementById('clientesHoy');
 const totalGarantias = document.getElementById('totalGarantias');
 const totalGarantiasHoy = document.getElementById('garantiasHoy');
+const ingresosSoles = document.getElementById('ingreso-soles');
+const ingresosDolares = document.getElementById('ingreso-dolares');
+const egresoSoles = document.getElementById('egreso-soles');
+const egresosDolares = document.getElementById('egreso-dolares');
 
 // Selectors for the mobile menu toggle
 const menuToggle = document.getElementById('menu-toggle');
@@ -56,12 +60,9 @@ function updateTotalTransactionsCounter() {
 		// Get all transactions
 		const allTransactions = window.transactionStore.getState();
 
-		// Get the counter element
-		const totalGarantiasElement = document.getElementById('totalGarantias');
-
 		// Update the counter if element exists
-		if (totalGarantiasElement) {
-			totalGarantiasElement.textContent = allTransactions.length;
+		if (totalGarantias) {
+			totalGarantias.textContent = allTransactions.length;
 		}
 	} else {
 		console.warn('Transaction store not initialized yet');
@@ -88,16 +89,55 @@ function updateTodaysTransactionsCounter() {
 			);
 		});
 
-		// Get the counter element
-		const garantiasHoyElement = document.getElementById('garantiasHoy');
-
 		// Update the counter if element exists
-		if (garantiasHoyElement) {
-			garantiasHoyElement.textContent = todaysTransactions.length;
+		if (totalGarantiasHoy) {
+			totalGarantiasHoy.textContent = todaysTransactions.length;
 		}
 	} else {
 		console.warn('Transaction store not initialized yet');
 	}
+}
+
+function displayIngresos() {
+	let totalSoles = 0;
+	let totalDolares = 0;
+
+	if (window.transactionStore) {
+		const allTransactions = window.transactionStore.getState();
+
+		allTransactions.forEach((transaction) => {
+			if (transaction.tipo === 'ingreso') {
+				if (transaction.moneda === 'pen') {
+					totalSoles += transaction.monto;
+				} else if (transaction.moneda === 'usd') {
+					totalDolares += transaction.monto;
+				}
+			}
+		});
+	}
+	if (ingresosSoles) ingresosSoles.textContent = totalSoles.toFixed(2);
+	if (ingresosDolares) ingresosDolares.textContent = totalDolares.toFixed(2);
+}
+
+function displayEgresos() {
+	let totalSoles = 0;
+	let totalDolares = 0;
+
+	if (window.transactionStore) {
+		const allTransactions = window.transactionStore.getState();
+
+		allTransactions.forEach((transaction) => {
+			if (transaction.tipo === 'egreso') {
+				if (transaction.moneda === 'pen') {
+					totalSoles += transaction.monto;
+				} else if (transaction.moneda === 'usd') {
+					totalDolares += transaction.monto;
+				}
+			}
+		});
+	}
+	if (egresoSoles) egresoSoles.textContent = totalSoles.toFixed(2);
+	if (egresosDolares) egresosDolares.textContent = totalDolares.toFixed(2);
 }
 
 // Function to update the total number of clients
@@ -130,4 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Update the total transactions counter
 	updateTotalTransactionsCounter();
 	updateTodaysTransactionsCounter();
+	displayIngresos();
+	displayEgresos();
 });
