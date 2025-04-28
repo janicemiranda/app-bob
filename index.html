@@ -6,6 +6,12 @@
 		<link rel="shortcut icon" href="/docs/wireframes/img/logo.svg" />
 		<title>App BOB</title>
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+		<!-- jQuery y Moment.js deben cargarse antes de DateRangePicker -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+		<!-- DateRangePicker -->
+		<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 		<!-- Chart.js -->
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<link rel="stylesheet" href="css/styles.css" />
@@ -114,86 +120,171 @@
 		<main class="md:ml-60 max-h-screen overflow-y-auto">
 			<div class="px-6 py-8 pb-32">
 				<div class="max-w-6xl mx-auto">
-					<h1 class="text-xl font-bold mb-5">Bienvenido, John Doe</h1>
-					<div class="bg-white rounded-3xl p-8 mb-8 shadow flex flex-col gap-8">
-						<!-- Fecha and Register button  -->
-						<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-							<p id="current-date" class="text-gray-700 text-lg font-semibold"></p>
+					<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+						<h1 class="text-2xl font-bold">Dashboard Gerencial</h1>
+						<div class="flex items-center">
+							<p id="current-date" class="text-gray-700 text-lg font-semibold mr-4"></p>
+							<div id="date-range-picker" class="bg-white border border-gray-300 rounded-md px-3 py-2 cursor-pointer">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-2" viewBox="0 0 20 20" fill="currentColor">
+									<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+								</svg>
+								<span>Filtrar por fecha</span>
+							</div>
 						</div>
+					</div>
 
-						<!-- Garantías Stats Section -->
-						<div>
-							<h2 class="text-lg font-bold mb-4">Estadísticas</h2>
-							<div class="grid grid-cols-2 gap-4">
-								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-									<p class="text-blue-700 text-sm font-semibold">Total Clientes</p>
-									<h2 id="totalClientes" class="text-blue-900 font-bold text-2xl">0</h2>
+					<!-- KPI Cards Section -->
+					<div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+						<div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+							<div class="flex items-center justify-between mb-4">
+								<h3 class="font-semibold text-gray-500">Total Clientes</h3>
+								<div class="p-2 bg-blue-50 rounded-lg">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+									</svg>
 								</div>
-								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-									<p class="text-blue-700 text-sm font-semibold">Clientes Registrado Hoy</p>
-									<h2 id="clientesHoy" class="text-blue-900 font-bold text-2xl">0</h2>
+							</div>
+							<div class="flex items-end justify-between">
+								<div>
+									<h2 id="totalClientes" class="text-3xl font-bold">0</h2>
+									<p id="clientesVariacion" class="text-sm text-gray-500">+0% vs mes anterior</p>
 								</div>
-								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-									<p class="text-blue-700 text-sm font-semibold">Total Garantías</p>
-									<h2 id="totalGarantias"class="text-blue-900 font-bold text-2xl">0</h2>
-								</div>
-								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
-									<p class="text-blue-700 text-sm font-semibold">Garantías Hoy</p>
-									<h2 id="garantiasHoy" class="text-blue-900 font-bold text-2xl">0</h2>
-								</div>
+								<div id="clientesTendencia" class="h-12 w-24"></div>
 							</div>
 						</div>
 
-						<!-- Ingresos Section -->
-						<div>
-							<h2 class="text-xl font-bold mb-4">Ingresos</h2>
-							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-								<div class="bg-green-100 p-6 rounded-xl shadow">
-									<p class="text-green-600 text-sm font-bold mb-2">Total de Ingresos PEN 🇵🇪</p>
-									<h2 class="text-2xl font-bold text-green-700">S/ <span id="ingreso-soles"></span></h2>
+						<div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+							<div class="flex items-center justify-between mb-4">
+								<h3 class="font-semibold text-gray-500">Garantías Totales</h3>
+								<div class="p-2 bg-green-50 rounded-lg">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
 								</div>
-								<div class="bg-green-100 p-6 rounded-xl shadow">
-									<p class="text-green-600 text-sm font-bold mb-2">Total de Ingresos USD 🇺🇸</p>
-									<h2 class="text-2xl font-bold text-green-700">$ <span id="ingreso-dolares"></span></h2>
+							</div>
+							<div class="flex items-end justify-between">
+								<div>
+									<h2 id="totalGarantias" class="text-3xl font-bold">0</h2>
+									<p id="garantiasVariacion" class="text-sm text-gray-500">+0% vs mes anterior</p>
 								</div>
+								<div id="garantiasTendencia" class="h-12 w-24"></div>
 							</div>
 						</div>
 
-						<!-- Devoluciones Section -->
-						<div>
-							<h2 class="text-xl font-bold mb-4">Devoluciones</h2>
-							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-								<div class="bg-red-100 p-6 rounded-xl shadow">
-									<p class="text-red-600 text-sm font-bold mb-2">Total de Devoluciones PEN 🇵🇪</p>
-									<h2 class="text-2xl font-bold text-red-700">S/ <span id="egreso-soles"></span></h2>
+						<div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+							<div class="flex items-center justify-between mb-4">
+								<h3 class="font-semibold text-gray-500">Garantías PEN</h3>
+								<div class="p-2 bg-indigo-50 rounded-lg">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
 								</div>
-								<div class="bg-red-100 p-6 rounded-xl shadow">
-									<p class="text-red-600 text-sm font-bold mb-2">Total de Devoluciones USD 🇺🇸</p>
-									<h2 class="text-2xl font-bold text-red-700">$ <span id="egreso-dolares"></span></h2>
+							</div>
+							<div class="flex items-end justify-between">
+								<div>
+									<h2 class="text-3xl font-bold">S/ <span id="ingreso-soles">0.00</span></h2>
+									<p id="ingresoSolesVariacion" class="text-sm text-gray-500">+0% vs mes anterior</p>
+								</div>
+								<div id="ingresoSolesTendencia" class="h-12 w-24"></div>
+							</div>
+						</div>
+
+						<div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow">
+							<div class="flex items-center justify-between mb-4">
+								<h3 class="font-semibold text-gray-500">Garantías USD</h3>
+								<div class="p-2 bg-yellow-50 rounded-lg">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+								</div>
+							</div>
+							<div class="flex items-end justify-between">
+								<div>
+									<h2 class="text-3xl font-bold">$ <span id="ingreso-dolares">0.00</span></h2>
+									<p id="ingresoDolaresVariacion" class="text-sm text-gray-500">+0% vs mes anterior</p>
+								</div>
+								<div id="ingresoDolaresTendencia" class="h-12 w-24"></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Estados de transacciones y clientes -->
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+						<div class="bg-white p-6 rounded-xl shadow">
+							<h2 class="text-lg font-bold mb-4">Estado de Garantías</h2>
+							<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+								<div class="bg-green-50 p-4 rounded-lg shadow text-center">
+									<p class="text-green-700 text-sm font-semibold">Pendientes</p>
+									<h2 id="garantiasPendientes" class="text-green-900 font-bold text-2xl">0</h2>
+								</div>
+								<div class="bg-blue-50 p-4 rounded-lg shadow text-center">
+									<p class="text-blue-700 text-sm font-semibold">Facturadas</p>
+									<h2 id="garantiasFacturadas" class="text-blue-900 font-bold text-2xl">0</h2>
+								</div>
+								<div class="bg-orange-50 p-4 rounded-lg shadow text-center">
+									<p class="text-orange-700 text-sm font-semibold">Garantías Hoy</p>
+									<h2 id="garantiasHoy" class="text-orange-900 font-bold text-2xl">0</h2>
+								</div>
+							</div>
+							<div class="mt-4">
+								<canvas id="estadoGarantiasChart"></canvas>
+							</div>
+						</div>
+						
+						<div class="bg-white p-6 rounded-xl shadow">
+							<h2 class="text-lg font-bold mb-4">Distribución de Garantías vs Devoluciones</h2>
+							<div class="grid grid-cols-2 gap-4 mb-4">
+								<div class="bg-green-50 p-4 rounded-lg shadow text-center">
+									<p class="text-green-700 text-sm font-semibold">Total Garantías PEN</p>
+									<h2 class="text-green-900 font-bold text-2xl">S/ <span id="total-ingresos-pen">0.00</span></h2>
+								</div>
+								<div class="bg-red-50 p-4 rounded-lg shadow text-center">
+									<p class="text-red-700 text-sm font-semibold">Total Devoluciones PEN</p>
+									<h2 class="text-red-900 font-bold text-2xl">S/ <span id="egreso-soles">0.00</span></h2>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-4 mb-4">
+								<div class="bg-green-50 p-4 rounded-lg shadow text-center">
+									<p class="text-green-700 text-sm font-semibold">Total Garantías USD</p>
+									<h2 class="text-green-900 font-bold text-2xl">$ <span id="total-ingresos-usd">0.00</span></h2>
+								</div>
+								<div class="bg-red-50 p-4 rounded-lg shadow text-center">
+									<p class="text-red-700 text-sm font-semibold">Total Devoluciones USD</p>
+									<h2 class="text-red-900 font-bold text-2xl">$ <span id="egreso-dolares">0.00</span></h2>
+								</div>
+							</div>
+							<h2 class="text-lg font-bold mb-4">Distribución de Garantías Facturadas</h2>
+							<div class="grid grid-cols-2 gap-4 mb-4">
+								<div class="bg-green-50 p-4 rounded-lg shadow text-center">
+									<p class="text-green-700 text-sm font-semibold">Total Garantías Facturadas PEN</p>
+									<h2 class="text-green-900 font-bold text-2xl">S/ <span id="ingreso-facturadas-pen">0.00</span></h2>
+								</div>
+								<div class="bg-green-50 p-4 rounded-lg shadow text-center">
+									<p class="text-green-700 text-sm font-semibold">Total Garantías Facturadas USD</p>
+									<h2 class="text-green-900 font-bold text-2xl">$ <span id="ingreso-facturadas-usd">0.00</span></h2>
 								</div>
 							</div>
 						</div>
 					</div>
 
 					<!-- Charts Section -->
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="bg-white p-6 rounded-3xl shadow">
-							<h2 class="text-center text-lg font-semibold mb-4">Gráfico Ingresos PEN</h2>
-							<canvas id="chartPen"></canvas>
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+						<div class="bg-white p-6 rounded-xl shadow">
+							<h2 class="text-lg font-bold mb-4">Top 5 clientes con mayor crédito PEN</h2>
+							<div style="height: 300px;"> <!-- Contenedor con altura fija -->
+								<canvas id="topClientesPENChart"></canvas>
+							</div>
 						</div>
-						<div class="bg-white p-6 rounded-3xl shadow">
-							<h2 class="text-center text-lg font-semibold mb-4">Gráfico Ingresos USD</h2>
-							<canvas id="chartUsd"></canvas>
+						<div class="bg-white p-6 rounded-xl shadow">
+							<h2 class="text-lg font-bold mb-4">Top 5 clientes con mayor crédito USD</h2>
+							<div style="height: 300px;"> <!-- Contenedor con altura fija -->
+								<canvas id="topClientesUSDChart"></canvas>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
-		<script src="js/Models/Client.js"></script>
-		<script src="js/persitence.js"></script>
-		<script src="js/store.js"></script>
-		<script src="js/app-transaction.js"></script>
-		<script src="js/app-clientes.js"></script>
 		<script src="js/app.js""></script>
 	</body>
 </html>
