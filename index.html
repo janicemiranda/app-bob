@@ -6,6 +6,8 @@
 		<link rel="shortcut icon" href="/docs/wireframes/img/logo.svg" />
 		<title>App BOB</title>
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+		<!-- Chart.js -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<link rel="stylesheet" href="css/styles.css" />
 	</head>
 
@@ -117,12 +119,6 @@
 						<!-- Fecha and Register button  -->
 						<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
 							<p id="current-date" class="text-gray-700 text-lg font-semibold"></p>
-
-							<button
-								class="w-full sm:w-auto px-6 py-3 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition"
-							>
-								Registrar Nueva Garantía
-							</button>
 						</div>
 
 						<!-- Garantías Stats Section -->
@@ -154,11 +150,11 @@
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div class="bg-green-100 p-6 rounded-xl shadow">
 									<p class="text-green-600 text-sm font-bold mb-2">Total de Ingresos PEN 🇵🇪</p>
-									<h2 class="text-2xl font-bold text-green-700">S/ 1000.00</h2>
+									<h2 class="text-2xl font-bold text-green-700">S/ <span id="ingreso-soles"></span></h2>
 								</div>
 								<div class="bg-green-100 p-6 rounded-xl shadow">
 									<p class="text-green-600 text-sm font-bold mb-2">Total de Ingresos USD 🇺🇸</p>
-									<h2 class="text-2xl font-bold text-green-700">$ 1000.00</h2>
+									<h2 class="text-2xl font-bold text-green-700">$ <span id="ingreso-dolares"></span></h2>
 								</div>
 							</div>
 						</div>
@@ -169,11 +165,11 @@
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div class="bg-red-100 p-6 rounded-xl shadow">
 									<p class="text-red-600 text-sm font-bold mb-2">Total de Devoluciones PEN 🇵🇪</p>
-									<h2 class="text-2xl font-bold text-red-700">S/ 400.00</h2>
+									<h2 class="text-2xl font-bold text-red-700">S/ <span id="egreso-soles"></span></h2>
 								</div>
 								<div class="bg-red-100 p-6 rounded-xl shadow">
 									<p class="text-red-600 text-sm font-bold mb-2">Total de Devoluciones USD 🇺🇸</p>
-									<h2 class="text-2xl font-bold text-red-700">$ 400.00</h2>
+									<h2 class="text-2xl font-bold text-red-700">$ <span id="egreso-dolares"></span></h2>
 								</div>
 							</div>
 						</div>
