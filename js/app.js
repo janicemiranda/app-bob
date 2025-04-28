@@ -240,7 +240,7 @@ function updateIngresosEgresosCharts(transactions) {
 						callbacks: {
 							label: function (tooltipItem) {
 								// Mostrar el monto de cada sector en el gráfico con dos decimales
-								return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)} ${tooltipItem.label}`;
+								return `${tooltipItem.label}: S/. ${tooltipItem.raw.toFixed(2)}`;
 							},
 						},
 					},
@@ -264,7 +264,7 @@ function updateIngresosEgresosCharts(transactions) {
 						callbacks: {
 							label: function (tooltipItem) {
 								// Mostrar el monto de cada sector en el gráfico con dos decimales
-								return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)} ${tooltipItem.label}`;
+								return `${tooltipItem.label}: $ ${tooltipItem.raw.toFixed(2)}`;
 							},
 						},
 					},
