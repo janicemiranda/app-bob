@@ -13,7 +13,7 @@
 </head>
 
 <body class="relative bg-yellow-50 overflow-hidden max-h-screen">
-	<header class="fixed right-0 top-0 left-60 bg-yellow-50 p-6 h-16">
+	<!-- <header class="fixed right-0 top-0 left-60 bg-yellow-50 p-6 h-16">
 		<div class="max-w-4xl mx-auto">
 			<div class="flex content-center">
 				<div class="text-lg font-bold">
@@ -21,10 +21,35 @@
 				</div>
 			</div>
 		</div>
+	</header> -->
+	<!-- Mobile Top Bar -->
+	<header class="flex items-center justify-between bg-white p-4 shadow md:hidden relative z-50">
+		<button id="menu-toggle" class="text-teal-600 text-3xl focus:outline-none">&#9776;</button>
+		<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" class="h-8" />
+
+		<!-- Dropdown Menu (hidden by default) -->
+		<div id="mobile-menu" class="absolute top-full left-0 w-full bg-white shadow-md rounded-b-xl hidden flex-col">
+			<a
+				href="index.html"
+				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+			>
+				Dashboard
+			</a>
+			<a
+				href="clients.html"
+				class="flex items-center bg-[#E0EFF0] rounded-xl font-bold text-sm text-[#266562] py-3 px-4"
+				class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+				>Clientes
+			</a>
+			<a href="#" class="flex bg-white hover:bg-gray-100 rounded-xl font-bold text-sm text-gray-900 py-3 px-4"
+				>Logout
+			</a>
+		</div>
 	</header>
 
-	<aside class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60">
-		<div class="flex flex-col justify-between h-full">
+	<aside
+	class="fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50"
+>		<div class="flex flex-col justify-between h-full">
 			<div class="flex-grow">
 				<div class="p-6">
 					<img src="/docs/wireframes/img/logo.svg" alt="Logo Bob Subastas" />
@@ -69,13 +94,13 @@
 	</aside>
 
 	<!-- Reemplaza solo el contenido dentro del <main> por lo siguiente -->
-	<main class="ml-60 pt-16 max-h-screen overflow-auto">
+		<main class="md:ml-60 max-h-screen overflow-y-auto pb-24">
 		<div class="px-6 py-8">
     <div class="max-w-6xl mx-auto">
         <div class="bg-white rounded-3xl p-8 mb-5 shadow">
             <div class="flex flex-col lg:flex-row gap-6">
                 <div class="w-full lg:w-1/2">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="p-4 bg-green-50 rounded-xl shadow-sm">
                             <p class="text-sm text-green-600 font-medium">Total de Ingresos Soles</p>
                             <p class="text-2xl font-bold text-green-700">S/ <span
@@ -123,54 +148,50 @@
 </div>
 		<div class="px-6 py-0">
 			<div class="max-w-6xl mx-auto">
+				<!-- -->
 				<div class="bg-white rounded-3xl p-8 mb-5 shadow">
-					<div class="flex items-center justify-between mb-6">
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+						<!-- Cliente Info -->
 						<div>
 							<h1 class="text-l text-gray-500 mb-2">Cliente</h1>
 							<p class="text-2xl font-bold text-gray-900 client-name" id="client-name"></p>
-
+				
 							<p class="mt-1">
 								<span class="text-gray-500">Email:</span>
-								<a href="mailto:email@cliente.com" class="text-black client-email"
-									id="client-email"></a>
+								<a href="mailto:email@cliente.com" class="text-black client-email" id="client-email"></a>
 							</p>
-
+				
 							<p>
 								<span class="text-gray-500" id="client-tipo-documento"></span>
 								<span class="text-black client-dni" id="client-numero-documento"></span>
 							</p>
 						</div>
-
-						<button id="btnNuevoMovimiento"
-							class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition">
-							<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2"
-								viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-							</svg>
-							Nueva Garantía
-						</button>
+				
+						<!-- Nueva Garantía Button -->
+						<div class="flex justify-center md:justify-end">
+							<button id="btnNuevoMovimiento"
+								class="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition">
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+								</svg>
+								Nueva Garantía
+							</button>
+						</div>
 					</div>
-					<div class="overflow-x-auto">
+				
+					<!-- Tabla de Movimientos -->
+					<div class="overflow-x-auto mt-6">
 						<table class="min-w-full divide-y divide-gray-200" id="movimientosTable">
 							<thead class="bg-yellow-100">
 								<tr>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">
-										Movimiento</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Fecha
-										Subasta</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Banco
-									</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nro.
-										Cuenta</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Moneda
-									</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">
-										Importe</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Estado
-									</th>
-									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Accion
-									</th>
-
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Movimiento</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Fecha Subasta</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Banco</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Nro. Cuenta</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Moneda</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Importe</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Estado</th>
+									<th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase">Accion</th>
 								</tr>
 							</thead>
 							<tbody class="bg-white divide-y divide-gray-100" id="clientesTableBody">
@@ -179,11 +200,12 @@
 						</table>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		<!-- Modal para Nuevo Registro de Movimiento -->
 		<div id="modalRegistro" class="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" hidden>
-			<div class="relative w-full max-w-5xl rounded-xl bg-white p-8 shadow-lg">
+			<div class="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-xl bg-white p-8 shadow-lg">
 				<button id="closeModalRegistro"
 					class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600">
 					&times;
@@ -425,6 +447,7 @@
 	<script src="js/persitence.js"></script>
 	<script src="js/store.js"></script>
 	<script src="js/app-transaction.js"></script>
+	<script src="js/app.js""></script>
 </body>
 
 </html>
